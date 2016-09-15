@@ -23,6 +23,7 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
+   
 class Ui_MainDialog(object):
     def setupUi(self, MainDialog):
         MainDialog.setObjectName(_fromUtf8("MainDialog"))
@@ -150,20 +151,20 @@ class Ui_MainDialog(object):
         self.doubleSpinBox_North.setProperty("value", 48.94)
         self.doubleSpinBox_North.setObjectName(_fromUtf8("doubleSpinBox_North"))
         self.gridLayout_5.addWidget(self.doubleSpinBox_North, 1, 1, 1, 1)
-        self.doubleSpinBox_West = QtGui.QDoubleSpinBox(self.groupBox_geo)
-        self.doubleSpinBox_West.setMinimum(-90.0)
-        self.doubleSpinBox_West.setMaximum(90.0)
-        self.doubleSpinBox_West.setProperty("value", 48.93)
-        self.doubleSpinBox_West.setObjectName(_fromUtf8("doubleSpinBox_West"))
-        self.gridLayout_5.addWidget(self.doubleSpinBox_West, 1, 5, 1, 1)
+        self.doubleSpinBox_South1 = QtGui.QDoubleSpinBox(self.groupBox_geo)
+        self.doubleSpinBox_South1.setMinimum(-90.0)
+        self.doubleSpinBox_South1.setMaximum(90.0)
+        self.doubleSpinBox_South1.setProperty("value", 48.93)
+        self.doubleSpinBox_South1.setObjectName(_fromUtf8("doubleSpinBox_South1"))
+        self.gridLayout_5.addWidget(self.doubleSpinBox_South1, 1, 5, 1, 1)
         spacerItem6 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.gridLayout_5.addItem(spacerItem6, 1, 7, 1, 1)
-        self.doubleSpinBox_South = QtGui.QDoubleSpinBox(self.groupBox_geo)
-        self.doubleSpinBox_South.setMinimum(-180.0)
-        self.doubleSpinBox_South.setMaximum(180.0)
-        self.doubleSpinBox_South.setProperty("value", 7.86)
-        self.doubleSpinBox_South.setObjectName(_fromUtf8("doubleSpinBox_South"))
-        self.gridLayout_5.addWidget(self.doubleSpinBox_South, 2, 1, 1, 1)
+        self.doubleSpinBox_West = QtGui.QDoubleSpinBox(self.groupBox_geo)
+        self.doubleSpinBox_West.setMinimum(-180.0)
+        self.doubleSpinBox_West.setMaximum(180.0)
+        self.doubleSpinBox_West.setProperty("value", 7.86)
+        self.doubleSpinBox_West.setObjectName(_fromUtf8("doubleSpinBox_West"))
+        self.gridLayout_5.addWidget(self.doubleSpinBox_West, 2, 1, 1, 1)
         self.comboBox_ref_geo = QtGui.QComboBox(self.groupBox_geo)
         self.comboBox_ref_geo.setObjectName(_fromUtf8("comboBox_ref_geo"))
         self.comboBox_ref_geo.addItem(_fromUtf8(""))
@@ -640,8 +641,8 @@ class Ui_MainDialog(object):
         self.Depth1.setBuddy(self.doubleSpinBox_depth1)
         self.North.setBuddy(self.doubleSpinBox_North)
         self.Coordinate_system.setBuddy(self.comboBox_ref_geo)
-        self.South.setBuddy(self.doubleSpinBox_West)
-        self.East.setBuddy(self.doubleSpinBox_South)
+        self.South.setBuddy(self.doubleSpinBox_South1)
+        self.East.setBuddy(self.doubleSpinBox_West)
         self.West.setBuddy(self.doubleSpinBox_East)
         self.Creation_date.setBuddy(self.dateEdit_creation_date)
         self.Subject_study.setBuddy(self.listWidget_subjectStudy2)
@@ -930,43 +931,67 @@ class Ui_MainDialog(object):
         self.pushButton_previous7.setText(_translate("MainDialog", "<< Previous", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_7), _translate("MainDialog", "Validation", None))
 
-
+        
     def action_next1(self):
         "Action du bouton next de tab ID"
         global title, abstract, data_type
         title=self.lineEdit_title.text()
         abstract=self.textEdit_abstract.toPlainText()
         data_type=self.comboBox_Datatype.currentText()
-        self.tab_ID.hide()
-        self.tab_2.show()
-        self.tab_2.setEnabled(True)
-        self.tabWidget.setCurrentIndex(1)
+        if title=='':
+            e = QtGui.QMessageBox()
+            e.setWindowTitle('Error')
+            e.setText('Please enter a title')
+            e.exec_()
+        elif abstract=='':
+            f = QtGui.QMessageBox()
+            f.setWindowTitle('Error')
+            f.setText('Please enter an abstract')
+            f.exec_()
+        else:
+            self.Next(self.tab_ID, self.tab_2, 1)            
         
     def action_next2(self):
         "Action du bouton next du tab 2"
         global georef, North, South, East, West, Depth1, Depth2, date, T1, T2, creation_date
         georef=self.comboBox_ref_geo.currentText()
         North=self.doubleSpinBox_North.value()
-        South=self.doubleSpinBox_South.value()
+        South=self.doubleSpinBox_South1.value()
         East=self.doubleSpinBox_East.value()
         West=self.doubleSpinBox_West.value()
         Depth1=self.doubleSpinBox_depth1.value()
         Depth2=self.doubleSpinBox_depth2.value()
         creation_date=self.dateEdit_creation_date.date()
-        self.tab_2.hide()
-        self.tab_3.show()
-        self.tab_3.setEnabled(True)
-        self.tabWidget.setCurrentIndex(2)
-        if self.radioButton_temp.isChecked()==1:
+        if North<South:
+            e = QtGui.QMessageBox()
+            e.setWindowTitle('Error')
+            e.setText('North value should be higher than the South value')
+            e.exec_()  
+        if West>East:
+            f = QtGui.QMessageBox()
+            f.setWindowTitle('Error')
+            f.setText('East value should be higher than the West value')
+            f.exec_()      
+        if self.radioButton_temp.isChecked()==0 and self.radioButton_date.isChecked()==0:
+                d = QtGui.QMessageBox()
+                d.setWindowTitle('Error')
+                d.setText('Please choose date or a temporal extent')
+                d.exec_()
+        elif self.radioButton_temp.isChecked()==1:
             t1=[str(self.dateEdit_tempstart.date().year()), str(self.dateEdit_tempstart.date().month()), str(self.dateEdit_tempstart.date().day())]
             T1=t1[0]+'-'+t1[1]+'-'+t1[2]
             t2=[str(self.dateEdit_tempend.date().year()), str(self.dateEdit_tempend.date().month()), str(self.dateEdit_tempend.date().day())]
             T2=t2[0]+'-'+t2[1]+'-'+t2[2]
+            self.Next(self.tab_2, self.tab_3,2)
         elif self.radioButton_date.isChecked()==1:
             t1=[str(self.dateEdit_date.date().year()),str(self.dateEdit_date.date().month()),str(self.dateEdit_date.date().day())]
             T1=t1[0]+'-'+t1[1]+'-'+t1[2]
             T2=0
-        
+            self.Next(self.tab_2, self.tab_3,2)
+
+            
+            
+            
     def action_next3(self):
         "Action du bouton next du tab 3"
         global subject_Study, project_Phase, location, variables
@@ -974,10 +999,7 @@ class Ui_MainDialog(object):
         project_Phase=[]
         location=[]
         variables=[]
-        self.tab_3.hide()
-        self.tab_4.show()
-        self.tab_4.setEnabled(True)
-        self.tabWidget.setCurrentIndex(3)
+        self.Next(self.tab_3, self.tab_4,3)
         for index in range(self.listWidget_subjectStudy2.count()):
             subject_Study.append(self.listWidget_subjectStudy2.item(index).text())            
         for index1 in range(self.listWidget_projectPhase2.count()):
@@ -993,10 +1015,7 @@ class Ui_MainDialog(object):
         "Action du bouton next du tab 4 quality"
         global format1, quality
         format1= []
-        self.tab_4.hide()
-        self.tab_5.show()
-        self.tab_5.setEnabled(True)
-        self.tabWidget.setCurrentIndex(4)
+        self.Next(self.tab_4, self.tab_5,4)
         for index in range(self.listWidget_Format2.count()):
             format1.append(self.listWidget_Format2.item(index).text())
         quality=self.textEdit_quality.toPlainText()
@@ -1008,10 +1027,7 @@ class Ui_MainDialog(object):
         use_lim=self.lineEdit_useLimitation.text()
         access=self.comboBox_access.currentText()
         citation=self.textEdit_Citation.toPlainText()
-        self.tab_5.hide()
-        self.tab_6.show()
-        self.tab_6.setEnabled(True)
-        self.tabWidget.setCurrentIndex(5)
+        self.Next(self.tab_5, self.tab_6,5)
     
     def action_next6(self):
         "Action du bouton next du tab 6 contact"
@@ -1019,10 +1035,7 @@ class Ui_MainDialog(object):
         distributor=self.comboBox_distributor.currentText()
         resource_contact=self.comboBox_resourcOrganisation.currentText()
         result=[title, abstract,T1, T2, str(North), str(West), str(South), str(East)]
-        self.tab_6.hide()
-        self.tab_7.show()
-        self.tab_7.setEnabled(True)
-        self.tabWidget.setCurrentIndex(6)
+        self.Next(self.tab_6, self.tab_7,6)
         if self.checkBox_owner1.isChecked()==1:
             owner1=self.comboBox_ownerOrganisation1.currentText()
         if self.checkBox_2.isChecked()==1:
@@ -1031,9 +1044,13 @@ class Ui_MainDialog(object):
         self.tableWidget_validation.insertRow(rowPosition)
         for i in range(0, self.tableWidget_validation.columnCount()):
             self.tableWidget_validation.setItem(rowPosition, i, QtGui.QTableWidgetItem(result[i]))
-                        
             
-            
+    def Next(self, tab1, tab2, tabnumber_tab1):
+        tab1.hide()
+        tab2.show()
+        tab2.setEnabled(True)
+        self.tabWidget.setCurrentIndex(tabnumber_tab1)
+               
     def Previous(self, tab1, tab2, tabnumber_tab1):
         tab2.hide()
         tab1.show()
@@ -1096,6 +1113,11 @@ class Ui_MainDialog(object):
 
     def action_previous7(self):
         self.Previous(self.tab_6, self.tab_7,5)
+        rowPosition=self.tableWidget_validation.rowCount()
+        self.tableWidget_validation.removeRow(rowPosition-1)
+
+ #   def validate(self):
+        
 
 if __name__ == "__main__":
     import sys

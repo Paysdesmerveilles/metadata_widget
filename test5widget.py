@@ -128,7 +128,8 @@ class Ui_MainDialog(object):
         self.gridLayout_5 = QtGui.QGridLayout(self.groupBox_geo)
         self.gridLayout_5.setObjectName(_fromUtf8("gridLayout_5"))
         self.doubleSpinBox_depth1 = QtGui.QDoubleSpinBox(self.groupBox_geo)
-        self.doubleSpinBox_depth1.setMaximum(1000.0)
+        self.doubleSpinBox_depth1.setMaximum(500)
+        self.doubleSpinBox_depth1.setMinimum(-6000)
         self.doubleSpinBox_depth1.setObjectName(_fromUtf8("doubleSpinBox_depth1"))
         self.gridLayout_5.addWidget(self.doubleSpinBox_depth1, 4, 1, 1, 1)
         self.Depth2 = QtGui.QLabel(self.groupBox_geo)
@@ -136,6 +137,7 @@ class Ui_MainDialog(object):
         self.gridLayout_5.addWidget(self.Depth2, 4, 4, 1, 1)
         self.doubleSpinBox_depth2 = QtGui.QDoubleSpinBox(self.groupBox_geo)
         self.doubleSpinBox_depth2.setMaximum(0.0)
+        self.doubleSpinBox_depth2.setMinimum(-6000)
         self.doubleSpinBox_depth2.setProperty("value", 0.0)
         self.doubleSpinBox_depth2.setObjectName(_fromUtf8("doubleSpinBox_depth2"))
         self.gridLayout_5.addWidget(self.doubleSpinBox_depth2, 4, 5, 1, 1)
@@ -619,9 +621,9 @@ class Ui_MainDialog(object):
         item = QtGui.QTableWidgetItem()
         self.tableWidget_validation.setHorizontalHeaderItem(7, item)
         self.gridLayout_2.addWidget(self.tableWidget_validation, 0, 0, 1, 3)
-        self.pushButton_previous7_2 = QtGui.QPushButton(self.tab_7)
-        self.pushButton_previous7_2.setObjectName(_fromUtf8("pushButton_previous7_2"))
-        self.gridLayout_2.addWidget(self.pushButton_previous7_2, 2, 0, 1, 1)
+        self.pushButton_previous7 = QtGui.QPushButton(self.tab_7)
+        self.pushButton_previous7.setObjectName(_fromUtf8("pushButton_previous7"))
+        self.gridLayout_2.addWidget(self.pushButton_previous7, 2, 0, 1, 1)
         spacerItem26 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.gridLayout_2.addItem(spacerItem26, 1, 0, 1, 1)
         spacerItem27 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
@@ -658,8 +660,8 @@ class Ui_MainDialog(object):
         MainDialog.setTabOrder(self.Pushbutton_next2, self.comboBox_resourcOrganisation)
         MainDialog.setTabOrder(self.comboBox_resourcOrganisation, self.pushButton_next6)
         MainDialog.setTabOrder(self.pushButton_next6, self.tableWidget_validation)
-        MainDialog.setTabOrder(self.tableWidget_validation, self.pushButton_previous7_2)
-        MainDialog.setTabOrder(self.pushButton_previous7_2, self.pushButton_validate)
+        MainDialog.setTabOrder(self.tableWidget_validation, self.pushButton_previous7)
+        MainDialog.setTabOrder(self.pushButton_previous7, self.pushButton_validate)
         QtCore.QObject.connect(self.PushButton_Next1, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_next1)
         QtCore.QObject.connect(self.Pushbutton_next2, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_next2)
         QtCore.QObject.connect(self.pushButton_next3, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_next3)
@@ -675,7 +677,13 @@ class Ui_MainDialog(object):
         QtCore.QObject.connect(self.pushButton_Formatin, QtCore.SIGNAL(_fromUtf8("clicked()")), self.arrowin_format)
         QtCore.QObject.connect(self.pushButton_formatout, QtCore.SIGNAL(_fromUtf8("clicked()")), self.arrowout_format)        
         QtCore.QObject.connect(self.pushButton_variablein, QtCore.SIGNAL(_fromUtf8("clicked()")), self.arrowin_variable)
-        QtCore.QObject.connect(self.pushButton_variableout, QtCore.SIGNAL(_fromUtf8("clicked()")), self.arrowout_variable) 
+        QtCore.QObject.connect(self.pushButton_variableout, QtCore.SIGNAL(_fromUtf8("clicked()")), self.arrowout_variable)
+        QtCore.QObject.connect(self.Pushbutton_previous2, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_previous2)
+        QtCore.QObject.connect(self.pushButton_previous3, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_previous3)
+        QtCore.QObject.connect(self.pushButton_previous4, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_previous4)
+        QtCore.QObject.connect(self.pushButton_19, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_previous5)
+        QtCore.QObject.connect(self.pushButton_previous6, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_previous6)
+        QtCore.QObject.connect(self.pushButton_previous7, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_previous7)
 
         
     def retranslateUi(self, MainDialog):
@@ -919,7 +927,7 @@ class Ui_MainDialog(object):
         item.setText(_translate("MainDialog", "South", None))
         item = self.tableWidget_validation.horizontalHeaderItem(7)
         item.setText(_translate("MainDialog", "East", None))
-        self.pushButton_previous7_2.setText(_translate("MainDialog", "<< Previous", None))
+        self.pushButton_previous7.setText(_translate("MainDialog", "<< Previous", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_7), _translate("MainDialog", "Validation", None))
 
 
@@ -962,30 +970,33 @@ class Ui_MainDialog(object):
         project_Phase=[]
         location=[]
         variables=[]
-        for index in range(self.listWidget_subjectStudy2.count()):
-            subject_Study.append(self.listWidget_subjectStudy2.item(index).text())
-        for index in range(self.ListWidget_projectPhase2.count()):
-            subject_Study.append(self.ListWidget_projectPhase2.item(index).text())
-        for index in range(self.ListWidget_Location2.count()):
-            subject_Study.append(self.ListWidget_Location2.item(index).text())
-        for index in range(self.ListWidget_variable2.count()):
-            subject_Study.append(self.ListWidget_variable2.item(index).text())
         self.tab_3.hide()
         self.tab_4.show()
         self.tab_4.setEnabled(True)
         self.tabWidget.setCurrentIndex(3)
-        
+        for index in range(self.listWidget_subjectStudy2.count()):
+            subject_Study.append(self.listWidget_subjectStudy2.item(index).text())            
+        for index1 in range(self.listWidget_projectPhase2.count()):
+            project_Phase.append(self.listWidget_projectPhase2.item(index1).text())           
+        for index2 in range(self.listWidget_Location2.count()):
+            location.append(self.listWidget_Location2.item(index2).text())           
+        for index3 in range(self.listWidget_variable2.count()):
+            variables.append(self.listWidget_variable2.item(index3).text())
+
+      
+            
     def action_next4(self):
         "Action du bouton next du tab 4 quality"
         global format1, quality
         format1= []
-        for index in range(self.ListWidget_Format2.count()):
-            subject_Study.append(self.ListWidget_Format2.item(index).text())
-        quality=self.textEdit_quality.toPlainText()
         self.tab_4.hide()
         self.tab_5.show()
         self.tab_5.setEnabled(True)
         self.tabWidget.setCurrentIndex(4)
+        for index in range(self.listWidget_Format2.count()):
+            format1.append(self.listWidget_Format2.item(index).text())
+        quality=self.textEdit_quality.toPlainText()
+
         
     def action_next5(self):
         "Action du bouton next du tab 5 contraints"
@@ -1011,6 +1022,12 @@ class Ui_MainDialog(object):
             owner1=self.comboBox_ownerOrganisation1.currentText()
         if self.checkBox_2.isChecked()==1:
             owner2=self.comboBox_ownerOrganisation2.currentText()
+            
+    def Previous(self, tab1, tab2, tabnumber_tab1):
+        tab2.hide()
+        tab1.show()
+        tab2.setEnabled(False)
+        self.tabWidget.setCurrentIndex(tabnumber_tab1)        
             
     def Arrow(self, W1, W2):
         item1=W1.currentItem()
@@ -1049,7 +1066,25 @@ class Ui_MainDialog(object):
         self.Arrow(self.listWidget_Format1,self.listWidget_Format2)
         
     def arrowout_format(self):
-        self.Arrow(self.listWidget_Format1,self.listWidget_Format2)
+        self.Arrow(self.listWidget_Format2,self.listWidget_Format1)
+        
+    def action_previous2(self):
+        self.Previous(self.tab_ID, self.tab_2,0)
+    
+    def action_previous3(self):
+        self.Previous(self.tab_2, self.tab_3,1)
+
+    def action_previous4(self):
+        self.Previous(self.tab_3, self.tab_4,2)
+        
+    def action_previous5(self):
+        self.Previous(self.tab_4, self.tab_5,3)
+        
+    def action_previous6(self):
+        self.Previous(self.tab_5, self.tab_6,4)
+
+    def action_previous7(self):
+        self.Previous(self.tab_6, self.tab_7,5)
 
 if __name__ == "__main__":
     import sys

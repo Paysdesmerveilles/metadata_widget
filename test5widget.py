@@ -31,9 +31,9 @@ class Ui_MainDialog(object):
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem, 1, 0, 1, 1)
-        self.PushButton_quit = QtGui.QPushButton(MainDialog)
-        self.PushButton_quit.setObjectName(_fromUtf8("PushButton_quit"))
-        self.gridLayout.addWidget(self.PushButton_quit, 1, 1, 1, 1)
+        self.pushButton_quit = QtGui.QPushButton(MainDialog)
+        self.pushButton_quit.setObjectName(_fromUtf8("pushButton_quit"))
+        self.gridLayout.addWidget(self.pushButton_quit, 1, 1, 1, 1)
         self.tabWidget = QtGui.QTabWidget(MainDialog)
         self.tabWidget.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.tabWidget.setTabShape(QtGui.QTabWidget.Rounded)
@@ -49,9 +49,9 @@ class Ui_MainDialog(object):
         self.Language = QtGui.QLabel(self.tab_ID)
         self.Language.setObjectName(_fromUtf8("Language"))
         self.gridLayout_3.addWidget(self.Language, 7, 0, 1, 1)
-        self.PushButton_Next1 = QtGui.QPushButton(self.tab_ID)
-        self.PushButton_Next1.setObjectName(_fromUtf8("PushButton_Next1"))
-        self.gridLayout_3.addWidget(self.PushButton_Next1, 9, 3, 1, 1)
+        self.pushButton_Next1 = QtGui.QPushButton(self.tab_ID)
+        self.pushButton_Next1.setObjectName(_fromUtf8("pushButton_Next1"))
+        self.gridLayout_3.addWidget(self.pushButton_Next1, 9, 3, 1, 1)
         self.English = QtGui.QLabel(self.tab_ID)
         font = QtGui.QFont()
         font.setPointSize(8)
@@ -207,14 +207,14 @@ class Ui_MainDialog(object):
         self.gridLayout_4.addWidget(self.groupBox_geo, 1, 0, 1, 3)
         spacerItem8 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.gridLayout_4.addItem(spacerItem8, 2, 0, 1, 1)
-        self.Pushbutton_next2 = QtGui.QPushButton(self.tab_2)
-        self.Pushbutton_next2.setObjectName(_fromUtf8("Pushbutton_next2"))
-        self.gridLayout_4.addWidget(self.Pushbutton_next2, 10, 2, 1, 1)
+        self.pushButton_next2 = QtGui.QPushButton(self.tab_2)
+        self.pushButton_next2.setObjectName(_fromUtf8("pushButton_next2"))
+        self.gridLayout_4.addWidget(self.pushButton_next2, 10, 2, 1, 1)
         spacerItem9 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.gridLayout_4.addItem(spacerItem9, 10, 1, 1, 1)
-        self.Pushbutton_previous2 = QtGui.QPushButton(self.tab_2)
-        self.Pushbutton_previous2.setObjectName(_fromUtf8("Pushbutton_previous2"))
-        self.gridLayout_4.addWidget(self.Pushbutton_previous2, 10, 0, 1, 1)
+        self.pushButton_previous2 = QtGui.QPushButton(self.tab_2)
+        self.pushButton_previous2.setObjectName(_fromUtf8("pushButton_previous2"))
+        self.gridLayout_4.addWidget(self.pushButton_previous2, 10, 0, 1, 1)
         self.Creation_date = QtGui.QLabel(self.tab_2)
         self.Creation_date.setObjectName(_fromUtf8("Creation_date"))
         self.gridLayout_4.addWidget(self.Creation_date, 8, 0, 1, 1)
@@ -506,9 +506,9 @@ class Ui_MainDialog(object):
         self.Citation = QtGui.QLabel(self.tab_5)
         self.Citation.setObjectName(_fromUtf8("Citation"))
         self.gridLayout_9.addWidget(self.Citation, 6, 0, 1, 1)
-        self.pushButton_19 = QtGui.QPushButton(self.tab_5)
-        self.pushButton_19.setObjectName(_fromUtf8("pushButton_19"))
-        self.gridLayout_9.addWidget(self.pushButton_19, 8, 0, 1, 1)
+        self.pushButton_previous5 = QtGui.QPushButton(self.tab_5)
+        self.pushButton_previous5.setObjectName(_fromUtf8("pushButton_previous5"))
+        self.gridLayout_9.addWidget(self.pushButton_previous5, 8, 0, 1, 1)
         self.Use_limitation = QtGui.QLabel(self.tab_5)
         self.Use_limitation.setObjectName(_fromUtf8("Use_limitation"))
         self.gridLayout_9.addWidget(self.Use_limitation, 1, 0, 1, 1)
@@ -654,16 +654,16 @@ class Ui_MainDialog(object):
 
         self.retranslateUi(MainDialog)
         self.tabWidget.setCurrentIndex(0)
-        QtCore.QObject.connect(self.PushButton_quit, QtCore.SIGNAL(_fromUtf8("clicked()")), MainDialog.close)
-        QtCore.QObject.connect(self.PushButton_Next1, QtCore.SIGNAL(_fromUtf8("clicked()")), self.tabWidget.show)
+        QtCore.QObject.connect(self.pushButton_quit, QtCore.SIGNAL(_fromUtf8("clicked()")), MainDialog.close)
+        QtCore.QObject.connect(self.pushButton_Next1, QtCore.SIGNAL(_fromUtf8("clicked()")), self.tabWidget.show)
         QtCore.QMetaObject.connectSlotsByName(MainDialog)
-        MainDialog.setTabOrder(self.Pushbutton_next2, self.comboBox_resourcOrganisation)
+        MainDialog.setTabOrder(self.pushButton_next2, self.comboBox_resourcOrganisation)
         MainDialog.setTabOrder(self.comboBox_resourcOrganisation, self.pushButton_next6)
         MainDialog.setTabOrder(self.pushButton_next6, self.tableWidget_validation)
         MainDialog.setTabOrder(self.tableWidget_validation, self.pushButton_previous7)
         MainDialog.setTabOrder(self.pushButton_previous7, self.pushButton_validate)
-        QtCore.QObject.connect(self.PushButton_Next1, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_next1)
-        QtCore.QObject.connect(self.Pushbutton_next2, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_next2)
+        QtCore.QObject.connect(self.pushButton_Next1, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_next1)
+        QtCore.QObject.connect(self.pushButton_next2, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_next2)
         QtCore.QObject.connect(self.pushButton_next3, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_next3)
         QtCore.QObject.connect(self.pushButton_next4, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_next4)
         QtCore.QObject.connect(self.pushButton_next5, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_next5)
@@ -678,19 +678,19 @@ class Ui_MainDialog(object):
         QtCore.QObject.connect(self.pushButton_formatout, QtCore.SIGNAL(_fromUtf8("clicked()")), self.arrowout_format)        
         QtCore.QObject.connect(self.pushButton_variablein, QtCore.SIGNAL(_fromUtf8("clicked()")), self.arrowin_variable)
         QtCore.QObject.connect(self.pushButton_variableout, QtCore.SIGNAL(_fromUtf8("clicked()")), self.arrowout_variable)
-        QtCore.QObject.connect(self.Pushbutton_previous2, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_previous2)
+        QtCore.QObject.connect(self.pushButton_previous2, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_previous2)
         QtCore.QObject.connect(self.pushButton_previous3, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_previous3)
         QtCore.QObject.connect(self.pushButton_previous4, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_previous4)
-        QtCore.QObject.connect(self.pushButton_19, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_previous5)
+        QtCore.QObject.connect(self.pushButton_previous5, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_previous5)
         QtCore.QObject.connect(self.pushButton_previous6, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_previous6)
         QtCore.QObject.connect(self.pushButton_previous7, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_previous7)
 
         
     def retranslateUi(self, MainDialog):
         MainDialog.setWindowTitle(_translate("MainDialog", "Metadata implementation for GeoNetwork", None))
-        self.PushButton_quit.setText(_translate("MainDialog", "Quit", None))
+        self.pushButton_quit.setText(_translate("MainDialog", "Quit", None))
         self.Language.setText(_translate("MainDialog", "Language", None))
-        self.PushButton_Next1.setText(_translate("MainDialog", "Next >>", None))
+        self.pushButton_Next1.setText(_translate("MainDialog", "Next >>", None))
         self.English.setText(_translate("MainDialog", "English", None))
         self.lineEdit_title.setPlaceholderText(_translate("MainDialog", "Title", None))
         self.Title.setText(_translate("MainDialog", "Title", None))
@@ -720,8 +720,8 @@ class Ui_MainDialog(object):
         self.degreeN1.setText(_translate("MainDialog", "° N", None))
         self.East.setText(_translate("MainDialog", "East", None))
         self.West.setText(_translate("MainDialog", "West", None))
-        self.Pushbutton_next2.setText(_translate("MainDialog", "Next >>", None))
-        self.Pushbutton_previous2.setText(_translate("MainDialog", "<< Previous", None))
+        self.pushButton_next2.setText(_translate("MainDialog", "Next >>", None))
+        self.pushButton_previous2.setText(_translate("MainDialog", "<< Previous", None))
         self.Creation_date.setText(_translate("MainDialog", "Creation date", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainDialog", "Spatial and temporal extent", None))
         self.ISO.setText(_translate("MainDialog", "ISO categories", None))
@@ -878,7 +878,7 @@ class Ui_MainDialog(object):
         self.pushButton_next5.setText(_translate("MainDialog", "Next >>", None))
         self.Acces.setText(_translate("MainDialog", "Access contraints", None))
         self.Citation.setText(_translate("MainDialog", "Citation", None))
-        self.pushButton_19.setText(_translate("MainDialog", "<< Previous", None))
+        self.pushButton_previous5.setText(_translate("MainDialog", "<< Previous", None))
         self.Use_limitation.setText(_translate("MainDialog", "Use limitation", None))
         self.comboBox_access.setItemText(0, _translate("MainDialog", "Restricted", None))
         self.comboBox_access.setItemText(1, _translate("MainDialog", "Embargo", None))
@@ -944,7 +944,7 @@ class Ui_MainDialog(object):
         
     def action_next2(self):
         "Action du bouton next du tab 2"
-        global georef, North, South, East, West, Depth1, Depth2, date, t1, t2, creation_date
+        global georef, North, South, East, West, Depth1, Depth2, date, T1, T2, creation_date
         georef=self.comboBox_ref_geo.currentText()
         North=self.doubleSpinBox_North.value()
         South=self.doubleSpinBox_South.value()
@@ -958,10 +958,14 @@ class Ui_MainDialog(object):
         self.tab_3.setEnabled(True)
         self.tabWidget.setCurrentIndex(2)
         if self.radioButton_temp.isChecked()==1:
-            t1=self.dateEdit_tempstart.date()
-            t2=self.dateEdit_tempend.date()
+            t1=[str(self.dateEdit_tempstart.date().year()), str(self.dateEdit_tempstart.date().month()), str(self.dateEdit_tempstart.date().day())]
+            T1=t1[0]+'-'+t1[1]+'-'+t1[2]
+            t2=[str(self.dateEdit_tempend.date().year()), str(self.dateEdit_tempend.date().month()), str(self.dateEdit_tempend.date().day())]
+            T2=t2[0]+'-'+t2[1]+'-'+t2[2]
         elif self.radioButton_date.isChecked()==1:
-            date=self.dateEdit_date.date()
+            t1=[str(self.dateEdit_date.date().year()),str(self.dateEdit_date.date().month()),str(self.dateEdit_date.date().day())]
+            T1=t1[0]+'-'+t1[1]+'-'+t1[2]
+            T2=0
         
     def action_next3(self):
         "Action du bouton next du tab 3"
@@ -1011,9 +1015,10 @@ class Ui_MainDialog(object):
     
     def action_next6(self):
         "Action du bouton next du tab 6 contact"
-        global owner1, owner2, distributor, resource_contact
+        global owner1, owner2, distributor, resource_contact, result
         distributor=self.comboBox_distributor.currentText()
         resource_contact=self.comboBox_resourcOrganisation.currentText()
+        result=[title, abstract,T1, T2, str(North), str(West), str(South), str(East)]
         self.tab_6.hide()
         self.tab_7.show()
         self.tab_7.setEnabled(True)
@@ -1022,6 +1027,12 @@ class Ui_MainDialog(object):
             owner1=self.comboBox_ownerOrganisation1.currentText()
         if self.checkBox_2.isChecked()==1:
             owner2=self.comboBox_ownerOrganisation2.currentText()
+        rowPosition=self.tableWidget_validation.rowCount()
+        self.tableWidget_validation.insertRow(rowPosition)
+        for i in range(0, self.tableWidget_validation.columnCount()):
+            self.tableWidget_validation.setItem(rowPosition, i, QtGui.QTableWidgetItem(result[i]))
+                        
+            
             
     def Previous(self, tab1, tab2, tabnumber_tab1):
         tab2.hide()

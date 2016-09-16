@@ -101,16 +101,20 @@ class Ui_MainDialog(object):
         self.gridLayout_6.setObjectName(_fromUtf8("gridLayout_6"))
         self.dateEdit_tempend = QtGui.QDateEdit(self.groupBox_time)
         self.dateEdit_tempend.setObjectName(_fromUtf8("dateEdit_tempend"))
-        self.gridLayout_6.addWidget(self.dateEdit_tempend, 0, 4, 1, 1)
+        self.gridLayout_6.addWidget(self.dateEdit_tempend, 0, 5, 1, 1)#♥
         self.Tempend = QtGui.QLabel(self.groupBox_time)
         self.Tempend.setObjectName(_fromUtf8("Tempend"))
-        self.gridLayout_6.addWidget(self.Tempend, 0, 3, 1, 1)
+        self.gridLayout_6.addWidget(self.Tempend, 0, 4, 1, 1)
         self.dateEdit_date = QtGui.QDateEdit(self.groupBox_time)
         self.dateEdit_date.setObjectName(_fromUtf8("dateEdit_date"))
         self.gridLayout_6.addWidget(self.dateEdit_date, 1, 2, 1, 1)
         self.date1 = QtGui.QLabel(self.groupBox_time)
         self.date1.setObjectName(_fromUtf8("date1"))
         self.gridLayout_6.addWidget(self.date1, 1, 1, 1, 1)
+        spacerItem28 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout_6.addItem(spacerItem28, 0, 3, 1, 1)
+        spacerItem29 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout_6.addItem(spacerItem29, 0, 6, 1, 1)
         self.Tempstart = QtGui.QLabel(self.groupBox_time)
         self.Tempstart.setObjectName(_fromUtf8("Tempstart"))
         self.gridLayout_6.addWidget(self.Tempstart, 0, 1, 1, 1)
@@ -222,7 +226,7 @@ class Ui_MainDialog(object):
         spacerItem10 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.gridLayout_4.addItem(spacerItem10, 0, 0, 1, 1)
         self.dateEdit_creation_date = QtGui.QDateEdit(self.tab_2)
-        self.dateEdit_creation_date.setDate(QtCore.QDate(2016, 1, 1))
+        self.dateEdit_creation_date.setDate(QtCore.QDate.currentDate())
         self.dateEdit_creation_date.setObjectName(_fromUtf8("dateEdit_creation_date"))
         self.gridLayout_4.addWidget(self.dateEdit_creation_date, 8, 1, 1, 1)
         spacerItem11 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
@@ -605,6 +609,7 @@ class Ui_MainDialog(object):
         self.tableWidget_validation.setObjectName(_fromUtf8("tableWidget_validation"))
         self.tableWidget_validation.setColumnCount(8)
         self.tableWidget_validation.setRowCount(0)
+        
         item = QtGui.QTableWidgetItem()
         self.tableWidget_validation.setHorizontalHeaderItem(0, item)
         item = QtGui.QTableWidgetItem()
@@ -621,6 +626,7 @@ class Ui_MainDialog(object):
         self.tableWidget_validation.setHorizontalHeaderItem(6, item)
         item = QtGui.QTableWidgetItem()
         self.tableWidget_validation.setHorizontalHeaderItem(7, item)
+        self.tableWidget_validation.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
         self.gridLayout_2.addWidget(self.tableWidget_validation, 0, 0, 1, 3)
         self.pushButton_previous7 = QtGui.QPushButton(self.tab_7)
         self.pushButton_previous7.setObjectName(_fromUtf8("pushButton_previous7"))
@@ -803,7 +809,7 @@ class Ui_MainDialog(object):
         item = self.listWidget_subjectStudy1.item(8)
         item.setText(_translate("MainDialog", "Tectonics", None))
         item = self.listWidget_subjectStudy1.item(9)
-        item.setText(_translate("MainDialog", "Seismics, Seismic reflection, VSP, Vertical Seiemic Profile", None))
+        item.setText(_translate("MainDialog", "Seismics, Seismic reflection, VSP, Vertical Seismic Profile", None))
         item = self.listWidget_subjectStudy1.item(10)
         item.setText(_translate("MainDialog", "Modelisation", None))
         item = self.listWidget_subjectStudy1.item(11)
@@ -962,35 +968,41 @@ class Ui_MainDialog(object):
         Depth1=self.doubleSpinBox_depth1.value()
         Depth2=self.doubleSpinBox_depth2.value()
         creation_date=self.dateEdit_creation_date.date()
+        if self.radioButton_temp.isChecked()==1:
+            t1=[str(self.dateEdit_tempstart.date().year()), str(self.dateEdit_tempstart.date().month()), str(self.dateEdit_tempstart.date().day())]
+            T1=t1[0]+'-'+t1[1]+'-'+t1[2]
+            t2=[str(self.dateEdit_tempend.date().year()), str(self.dateEdit_tempend.date().month()), str(self.dateEdit_tempend.date().day())]
+            T2=t2[0]+'-'+t2[1]+'-'+t2[2]
+            if T1>=T2:
+                g = QtGui.QMessageBox()
+                g.setWindowTitle('Error')
+                g.setText('Please the start date should be lower than the end date')
+                g.exec_()
+            else:
+                T3=1
+        elif self.radioButton_date.isChecked()==1:
+            t1=[str(self.dateEdit_date.date().year()),str(self.dateEdit_date.date().month()),str(self.dateEdit_date.date().day())]
+            T1=t1[0]+'-'+t1[1]+'-'+t1[2]
+            T2=0
+            T3=1
         if North<South:
             e = QtGui.QMessageBox()
             e.setWindowTitle('Error')
             e.setText('North value should be higher than the South value')
             e.exec_()  
-        if West>East:
+        elif West>East:
             f = QtGui.QMessageBox()
             f.setWindowTitle('Error')
             f.setText('East value should be higher than the West value')
-            f.exec_()      
-        if self.radioButton_temp.isChecked()==0 and self.radioButton_date.isChecked()==0:
+            f.exec_()
+        elif self.radioButton_temp.isChecked()==0 and self.radioButton_date.isChecked()==0:
                 d = QtGui.QMessageBox()
                 d.setWindowTitle('Error')
                 d.setText('Please choose date or a temporal extent')
                 d.exec_()
-        elif self.radioButton_temp.isChecked()==1:
-            t1=[str(self.dateEdit_tempstart.date().year()), str(self.dateEdit_tempstart.date().month()), str(self.dateEdit_tempstart.date().day())]
-            T1=t1[0]+'-'+t1[1]+'-'+t1[2]
-            t2=[str(self.dateEdit_tempend.date().year()), str(self.dateEdit_tempend.date().month()), str(self.dateEdit_tempend.date().day())]
-            T2=t2[0]+'-'+t2[1]+'-'+t2[2]
+        
+        if North>South and West<East and T3==1:
             self.Next(self.tab_2, self.tab_3,2)
-        elif self.radioButton_date.isChecked()==1:
-            t1=[str(self.dateEdit_date.date().year()),str(self.dateEdit_date.date().month()),str(self.dateEdit_date.date().day())]
-            T1=t1[0]+'-'+t1[1]+'-'+t1[2]
-            T2=0
-            self.Next(self.tab_2, self.tab_3,2)
-
-            
-            
             
     def action_next3(self):
         "Action du bouton next du tab 3"
@@ -1008,8 +1020,6 @@ class Ui_MainDialog(object):
             location.append(self.listWidget_Location2.item(index2).text())           
         for index3 in range(self.listWidget_variable2.count()):
             variables.append(self.listWidget_variable2.item(index3).text())
-
-      
             
     def action_next4(self):
         "Action du bouton next du tab 4 quality"
@@ -1044,7 +1054,8 @@ class Ui_MainDialog(object):
         self.tableWidget_validation.insertRow(rowPosition)
         for i in range(0, self.tableWidget_validation.columnCount()):
             self.tableWidget_validation.setItem(rowPosition, i, QtGui.QTableWidgetItem(result[i]))
-            
+        
+        
     def Next(self, tab1, tab2, tabnumber_tab1):
         tab1.hide()
         tab2.show()
@@ -1116,7 +1127,13 @@ class Ui_MainDialog(object):
         rowPosition=self.tableWidget_validation.rowCount()
         self.tableWidget_validation.removeRow(rowPosition-1)
 
- #   def validate(self):
+    def validate(self):
+        self.Next(self.tab_7, self.tab_ID,0)
+        self.tab_2.setEnabled(True)
+        self.tab_3.setEnabled(True)
+        self.tab_4.setEnabled(True)
+        self.tab_5.setEnabled(True)
+        self.tab_6.setEnabled(True)
         
 
 if __name__ == "__main__":

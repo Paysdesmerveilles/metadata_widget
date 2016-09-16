@@ -1,0 +1,20 @@
+19
+T (Temperature)
+P (Pressure)
+Q, FLOW (Flow rate)
+Density logs (RHOB, DECA, DRHOB, ...)
+Imagery logs (ARI, BHTV, FMS, BI FMI, ...)
+PHI (Porosity)
+Hole caracterisation (Hole azimuth, radius, caliper, inclination, trajectry, deviation, ...)
+Magnetic parameters (FNOR, FX, FY, FZ, ...)
+V (Volume of water)
+Velocities and slowness logs (DTP, DTS, DTST, VP/VS)
+GR (Gamma Ray)
+Other
+Seismology parameters
+Resistivity logs (MPHI, IDPH, ILD, ILM, MSFL, LLD, LLS)
+Drilling parameters (drilling rate, velocity, WOH, WOB, Rate of penetration, ...)
+Chemical content (U, Th, O2, CH4, CO2, H2S, K, ...)
+Geological log (Age, Unit, Fracture, Minerals content, Petrographical description ...)
+Elastic properties (Young modulus, Poisson ratio, ...)
+Ph (pH)

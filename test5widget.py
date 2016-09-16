@@ -691,7 +691,7 @@ class Ui_MainDialog(object):
         QtCore.QObject.connect(self.pushButton_previous5, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_previous5)
         QtCore.QObject.connect(self.pushButton_previous6, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_previous6)
         QtCore.QObject.connect(self.pushButton_previous7, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_previous7)
-
+        QtCore.QObject.connect(self.pushButton_validate, QtCore.SIGNAL(_fromUtf8("clicked()")), self.validate)
         
     def retranslateUi(self, MainDialog):
         MainDialog.setWindowTitle(_translate("MainDialog", "Metadata implementation for GeoNetwork", None))
@@ -1128,12 +1128,25 @@ class Ui_MainDialog(object):
         self.tableWidget_validation.removeRow(rowPosition-1)
 
     def validate(self):
-        self.Next(self.tab_7, self.tab_ID,0)
-        self.tab_2.setEnabled(True)
-        self.tab_3.setEnabled(True)
-        self.tab_4.setEnabled(True)
-        self.tab_5.setEnabled(True)
-        self.tab_6.setEnabled(True)
+        e = QtGui.QMessageBox()
+        e.setWindowTitle('Information')
+        e.setText('Do you want to continue ?')
+        e.addButton( QtGui.QMessageBox.Yes)
+        e.addButton( QtGui.QMessageBox.No)
+        e.setDefaultButton(QtGui.QMessageBox.No)
+        response=e.exec_() 
+        if response==QtGui.QMessageBox.Yes:
+            self.Next(self.tab_7, self.tab_ID,0)
+            self.tab_2.setEnabled(True)
+            self.tab_3.setEnabled(True)
+            self.tab_4.setEnabled(True)
+            self.tab_5.setEnabled(True)
+            self.tab_6.setEnabled(True)
+        else:
+            f = QtGui.QMessageBox()
+            f.setWindowTitle('Information')
+            f.setText('Error')
+            f.exec_() 
         
 
 if __name__ == "__main__":

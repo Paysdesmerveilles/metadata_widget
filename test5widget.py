@@ -821,7 +821,7 @@ class Ui_MainDialog(object):
         
     def action_next2(self):
         "Action du bouton next du tab 2"
-        global georef, North, South, East, West, Depth1, Depth2, date, T1, T2, creation_date
+        global georef, North, South, East, West, Depth1, Depth2, date, T1, T2, Creation_date
         georef=self.comboBox_ref_geo.currentText()
         North=self.doubleSpinBox_North.value()
         South=self.doubleSpinBox_South1.value()
@@ -829,7 +829,8 @@ class Ui_MainDialog(object):
         West=self.doubleSpinBox_West.value()
         Depth1=self.doubleSpinBox_depth1.value()
         Depth2=self.doubleSpinBox_depth2.value()
-        creation_date=self.dateEdit_creation_date.date()
+        creation_date=[str(self.dateEdit_creation_date.date().year()),str(self.dateEdit_creation_date.date().month()), str(self.dateEdit_creation_date.date().day())]
+        Creation_date=creation_date[0]+'-'+creation_date[1]+'-'+creation_date[2]
         if self.radioButton_temp.isChecked()==1:
             t1=[str(self.dateEdit_tempstart.date().year()), str(self.dateEdit_tempstart.date().month()), str(self.dateEdit_tempstart.date().day())]
             T1=t1[0]+'-'+t1[1]+'-'+t1[2]

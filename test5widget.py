@@ -1,12 +1,5 @@
 # -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'test5_widget.ui'
-#
-# Created: Wed Sep 14 17:43:30 2016
-#      by: PyQt4 UI code generator 4.11.2
-#
-# WARNING! All changes made in this file will be lost!
-
+#Ilport of QT module
 from PyQt4 import QtCore, QtGui
 
 try:
@@ -22,35 +15,41 @@ try:
 except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
-
+#import of  the different list used#
+#List contains in Subject_study.csv file
+#The list is stored in the variable : subjectchoice
 file_subject=open('Subject_study.csv', 'r')
 subjectchoice=[]
 for i in range(0,int(file_subject.readline())+1):
     subjectchoice.append(file_subject.readline().rstrip('\n'))#.rstrip('\n')
 file_subject.close()
-
+#List contains in Project_study.csv file
+#The list is stored in the variable : projectchoice
 file_project=open('Project_phase.csv', 'r')
 projectchoice=[]
 for i in range(0,int(file_project.readline())+1):
-    projectchoice.append(file_project.readline().rstrip('\n'))#.rstrip('\n')
+    projectchoice.append(file_project.readline().rstrip('\n'))
 file_project.close()
-
+#List contains in Location.csv file
+#The list is stored in the variable : locationchoice
 file_location=open('Location.csv', 'r')
 locationchoice=[]
 for i in range(0,int(file_location.readline())+1):
-    locationchoice.append(file_location.readline().rstrip('\n'))#.rstrip('\n')
+    locationchoice.append(file_location.readline().rstrip('\n'))
 file_location.close()
-
+#List contains in Variable.csv file
+#The list is stored in the variable : variablechoice
 file_variable=open('Variable.csv', 'r')
 variablechoice=[]
 for i in range(0,int(file_variable.readline())+1):
-    variablechoice.append(file_variable.readline().rstrip('\n'))#.rstrip('\n')
+    variablechoice.append(file_variable.readline().rstrip('\n'))
 file_variable.close()
-
+#List contains in Format.csv file
+#The list is stored in the variable : formatchoice
 file_format=open('Format.csv', 'r')
 formatchoice=[]
 for i in range(0,int(file_format.readline())+1):
-    formatchoice.append(file_format.readline().rstrip('\n'))#.rstrip('\n')
+    formatchoice.append(file_format.readline().rstrip('\n'))
 file_format.close()
 
 class Ui_MainDialog(object):
@@ -339,11 +338,10 @@ class Ui_MainDialog(object):
         self.gridLayout_7.addWidget(self.pushButton_variablein, 11, 2, 1, 1)
         self.listWidget_variable1 = QtGui.QListWidget(self.tab_3)
         self.listWidget_variable1.setObjectName(_fromUtf8("listWidget_variable1"))
+        ##
         for i in range(0, len(variablechoice)-1) :
             item = QtGui.QListWidgetItem()
-            self.listWidget_variable1.addItem(item)
-            
-
+            self.listWidget_variable1.addItem(item)         
         self.gridLayout_7.addWidget(self.listWidget_variable1, 11, 1, 2, 1)
         self.listWidget_subjectStudy1 = QtGui.QListWidget(self.tab_3)
         self.listWidget_subjectStudy1.setObjectName(_fromUtf8("listWidget_subjectStudy1"))
@@ -351,15 +349,13 @@ class Ui_MainDialog(object):
         for i in range(0, len(subjectchoice)-1) :
             item = QtGui.QListWidgetItem()
             self.listWidget_subjectStudy1.addItem(item)
-        ##
         self.gridLayout_7.addWidget(self.listWidget_subjectStudy1, 1, 1, 2, 1)
         self.listWidget_projectPhase1 = QtGui.QListWidget(self.tab_3)
         self.listWidget_projectPhase1.setObjectName(_fromUtf8("listWidget_projectPhase1"))
+        ##
         for i in range(0, len(projectchoice)-1) :
             item = QtGui.QListWidgetItem()
             self.listWidget_projectPhase1.addItem(item)
-
-
         self.gridLayout_7.addWidget(self.listWidget_projectPhase1, 4, 1, 2, 1)
         self.pushButton_locationout = QtGui.QPushButton(self.tab_3)
         self.pushButton_locationout.setObjectName(_fromUtf8("pushButton_locationout"))
@@ -369,11 +365,10 @@ class Ui_MainDialog(object):
         self.gridLayout_7.addWidget(self.Project_phase, 4, 0, 1, 1)
         self.listWidget_Location1 = QtGui.QListWidget(self.tab_3)
         self.listWidget_Location1.setObjectName(_fromUtf8("listWidget_Location1"))
+        ##
         for i in range(0, len(locationchoice)-1) :
             item = QtGui.QListWidgetItem()
             self.listWidget_Location1.addItem(item)
-
-
         self.gridLayout_7.addWidget(self.listWidget_Location1, 8, 1, 2, 1)
         spacerItem17 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.gridLayout_7.addItem(spacerItem17, 13, 1, 1, 1)
@@ -395,19 +390,21 @@ class Ui_MainDialog(object):
         self.Format = QtGui.QLabel(self.tab_4)
         self.Format.setObjectName(_fromUtf8("Format"))
         self.gridLayout_8.addWidget(self.Format, 1, 0, 2, 1)
-        self.textEdit_quality = QtGui.QTextEdit(self.tab_4)
-        self.textEdit_quality.setObjectName(_fromUtf8("textEdit_quality"))
-        self.gridLayout_8.addWidget(self.textEdit_quality, 4, 2, 1, 5)
+        self.lineEdit_quality = QtGui.QLineEdit(self.tab_4)
+        self.lineEdit_quality.setObjectName(_fromUtf8("lineEdit_quality"))
+        self.gridLayout_8.addWidget(self.lineEdit_quality, 4, 2, 1, 5)
+        self.textEdit_process = QtGui.QTextEdit(self.tab_4)
+        self.textEdit_process.setObjectName(_fromUtf8("textEdit_process"))
+        self.gridLayout_8.addWidget(self.textEdit_process, 6, 2, 1, 5)
         self.pushButton_next4 = QtGui.QPushButton(self.tab_4)
         self.pushButton_next4.setObjectName(_fromUtf8("pushButton_next4"))
-        self.gridLayout_8.addWidget(self.pushButton_next4, 6, 7, 1, 1)
+        self.gridLayout_8.addWidget(self.pushButton_next4, 7, 7, 1, 1)
         self.listWidget_Format1 = QtGui.QListWidget(self.tab_4)
         self.listWidget_Format1.setObjectName(_fromUtf8("listWidget_Format1"))
+        ##
         for i in range(0, len(formatchoice)-1) :
             item = QtGui.QListWidgetItem()
             self.listWidget_Format1.addItem(item)
-            
-
         self.gridLayout_8.addWidget(self.listWidget_Format1, 1, 2, 2, 1)
         self.pushButton_Formatin = QtGui.QPushButton(self.tab_4)
         self.pushButton_Formatin.setObjectName(_fromUtf8("pushButton_Formatin"))
@@ -415,9 +412,12 @@ class Ui_MainDialog(object):
         self.Quality = QtGui.QLabel(self.tab_4)
         self.Quality.setObjectName(_fromUtf8("Quality"))
         self.gridLayout_8.addWidget(self.Quality, 4, 0, 1, 1)
+        self.process=QtGui.QLabel(self.tab_4)
+        self.process.setObjectName(_fromUtf8("Process"))
+        self.gridLayout_8.addWidget(self.process, 6, 0, 1, 1)
         self.pushButton_previous4 = QtGui.QPushButton(self.tab_4)
         self.pushButton_previous4.setObjectName(_fromUtf8("pushButton_previous4"))
-        self.gridLayout_8.addWidget(self.pushButton_previous4, 6, 0, 1, 1)
+        self.gridLayout_8.addWidget(self.pushButton_previous4, 7, 0, 1, 1)
         self.pushButton_formatout = QtGui.QPushButton(self.tab_4)
         self.pushButton_formatout.setObjectName(_fromUtf8("pushButton_formatout"))
         self.gridLayout_8.addWidget(self.pushButton_formatout, 2, 4, 1, 1)
@@ -596,7 +596,8 @@ class Ui_MainDialog(object):
         self.West.setBuddy(self.doubleSpinBox_East)
         self.Creation_date.setBuddy(self.dateEdit_creation_date)
         self.Subject_study.setBuddy(self.listWidget_subjectStudy2)
-        self.Quality.setBuddy(self.textEdit_quality)
+        self.Quality.setBuddy(self.lineEdit_quality)
+        self.process.setBuddy(self.textEdit_process)
         self.Acces.setBuddy(self.comboBox_access)
         self.Citation.setBuddy(self.textEdit_Citation)
         self.Use_limitation.setBuddy(self.lineEdit_useLimitation)
@@ -726,7 +727,6 @@ class Ui_MainDialog(object):
             item = self.listWidget_Location1.item(i)
             item.setText(_translate("MainDialog", locationchoice[i], None)) 
         ##    
-
         self.listWidget_Location1.setSortingEnabled(__sortingEnabled)
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainDialog", "Keywords", None))
         self.Format.setText(_translate("MainDialog", "Format", None))
@@ -736,14 +736,15 @@ class Ui_MainDialog(object):
         ##
         for i in range(0, len(formatchoice)-1):
             item = self.listWidget_Format1.item(i)
-            item.setText(_translate("MainDialog", formatchoice[i], None)) 
-            
+            item.setText(_translate("MainDialog", formatchoice[i], None))            
         self.listWidget_Format1.setSortingEnabled(__sortingEnabled)
         self.pushButton_Formatin.setText(_translate("MainDialog", ">>", None))
-        self.Quality.setText(_translate("MainDialog", "Quality and process steps", None))
+        self.Quality.setText(_translate("MainDialog", "Quality", None))
+        self.process.setText(_translate("MainDialog", "Process steps", None))
         self.pushButton_previous4.setText(_translate("MainDialog", "<< Previous", None))
         self.pushButton_formatout.setText(_translate("MainDialog", "<<", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), _translate("MainDialog", "Quality", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), _translate("MainDialog", "Process", None))
         self.pushButton_next5.setText(_translate("MainDialog", "Next >>", None))
         self.Acces.setText(_translate("MainDialog", "Access contraints", None))
         self.Citation.setText(_translate("MainDialog", "Citation", None))
@@ -798,7 +799,6 @@ class Ui_MainDialog(object):
         item.setText(_translate("MainDialog", "East", None))
         self.pushButton_previous7.setText(_translate("MainDialog", "<< Previous", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_7), _translate("MainDialog", "Validation", None))
-
         
     def action_next1(self):
         "Action du bouton next de tab ID"
@@ -885,13 +885,13 @@ class Ui_MainDialog(object):
             
     def action_next4(self):
         "Action du bouton next du tab 4 quality"
-        global format1, quality
+        global format1, quality, process
         format1= []
         self.Next(self.tab_4, self.tab_5,4)
         for index in range(self.listWidget_Format2.count()):
             format1.append(self.listWidget_Format2.item(index).text())
-        quality=self.textEdit_quality.toPlainText()
-
+        quality=self.lineEdit_quality.text()
+        process=self.textEdit_process.toPlainText()
         
     def action_next5(self):
         "Action du bouton next du tab 5 contraints"
@@ -998,6 +998,10 @@ class Ui_MainDialog(object):
         e.setDefaultButton(QtGui.QMessageBox.No)
         response=e.exec_() 
         if response==QtGui.QMessageBox.Yes:
+            g = QtGui.QMessageBox()
+            g.setWindowTitle('Information')
+            g.setText('The xml file is created!')
+            g.exec_() 
             self.Next(self.tab_7, self.tab_ID,0)
             self.tab_2.setEnabled(True)
             self.tab_3.setEnabled(True)
@@ -1005,10 +1009,7 @@ class Ui_MainDialog(object):
             self.tab_5.setEnabled(True)
             self.tab_6.setEnabled(True)
         else:
-            f = QtGui.QMessageBox()
-            f.setWindowTitle('Information')
-            f.setText('Error')
-            f.exec_() 
+            MainDialog.close
         
 
 if __name__ == "__main__":

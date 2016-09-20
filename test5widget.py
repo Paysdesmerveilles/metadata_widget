@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #Ilport of QT module
-from PyQt4 import QtCore, QtGui
 
+import B2d_XML
+from PyQt4 import QtCore, QtGui
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -51,7 +52,7 @@ formatchoice=[]
 for i in range(0,int(file_format.readline())+1):
     formatchoice.append(file_format.readline().rstrip('\n'))
 file_format.close()
-
+A=0
 class Ui_MainDialog(object):
     def setupUi(self, MainDialog):
         MainDialog.setObjectName(_fromUtf8("MainDialog"))
@@ -528,6 +529,7 @@ class Ui_MainDialog(object):
         self.gridLayout_11.addWidget(self.comboBox_ownerOrganisation1, 1, 1, 1, 1)
         self.checkBox_owner1 = QtGui.QCheckBox(self.groupBox_owner)
         self.checkBox_owner1.setObjectName(_fromUtf8("checkBox_owner1"))
+        self.checkBox_owner1.setChecked(True)
         self.gridLayout_11.addWidget(self.checkBox_owner1, 1, 0, 1, 1)
         self.checkBox_2 = QtGui.QCheckBox(self.groupBox_owner)
         self.checkBox_2.setObjectName(_fromUtf8("checkBox_2"))
@@ -846,7 +848,7 @@ class Ui_MainDialog(object):
         elif self.radioButton_date.isChecked()==1:
             t1=[str(self.dateEdit_date.date().year()),str(self.dateEdit_date.date().month()),str(self.dateEdit_date.date().day())]
             T1=t1[0]+'-'+t1[1]+'-'+t1[2]
-            T2=0
+            T2='0'
             T3=1
         if North<South:
             e = QtGui.QMessageBox()
@@ -874,7 +876,6 @@ class Ui_MainDialog(object):
         project_Phase=[]
         location=[]
         variables=[]
-        self.Next(self.tab_3, self.tab_4,3)
         for index in range(self.listWidget_subjectStudy2.count()):
             subject_Study.append(self.listWidget_subjectStudy2.item(index).text())            
         for index1 in range(self.listWidget_projectPhase2.count()):
@@ -883,6 +884,13 @@ class Ui_MainDialog(object):
             location.append(self.listWidget_Location2.item(index2).text())           
         for index3 in range(self.listWidget_variable2.count()):
             variables.append(self.listWidget_variable2.item(index3).text())
+        if subject_Study!=[] and variables!=[] and project_Phase!=[] and location!=[]:
+            self.Next(self.tab_3, self.tab_4,3)
+        else:
+            d = QtGui.QMessageBox()
+            d.setWindowTitle('Error')
+            d.setText('Please choose at least one variable per proposition')
+            d.exec_()
             
     def action_next4(self):
         "Action du bouton next du tab 4 quality"
@@ -909,14 +917,20 @@ class Ui_MainDialog(object):
         resource_contact=self.comboBox_resourcOrganisation.currentText()
         result=[title, abstract,T1, T2, str(North), str(West), str(South), str(East)]
         self.Next(self.tab_6, self.tab_7,6)
-        if self.checkBox_owner1.isChecked()==1:
+        if self.checkBox_owner1.isChecked()==1 and self.checkBox_2.isChecked()==1:
             owner1=self.comboBox_ownerOrganisation1.currentText()
-        if self.checkBox_2.isChecked()==1:
             owner2=self.comboBox_ownerOrganisation2.currentText()
+        elif self.checkBox_owner1.isChecked()==1 and self.checkBox_2.isChecked()==0:
+            owner1=self.comboBox_ownerOrganisation1.currentText()
+            owner2=0
+        elif self.checkBox_owner1.isChecked()==0 and self.checkBox_2.isChecked()==0:
+            owner1=0
+            owner2=0
         rowPosition=self.tableWidget_validation.rowCount()
         self.tableWidget_validation.insertRow(rowPosition)
         for i in range(0, self.tableWidget_validation.columnCount()):
             self.tableWidget_validation.setItem(rowPosition, i, QtGui.QTableWidgetItem(result[i]))
+
         
         
     def Next(self, tab1, tab2, tabnumber_tab1):
@@ -991,6 +1005,7 @@ class Ui_MainDialog(object):
         self.tableWidget_validation.removeRow(rowPosition-1)
 
     def validate(self):
+        global A
         e = QtGui.QMessageBox()
         e.setWindowTitle('Information')
         e.setText('Do you want to continue ?')
@@ -1003,14 +1018,21 @@ class Ui_MainDialog(object):
             g.setWindowTitle('Information')
             g.setText('The xml file is created!')
             g.exec_() 
+            B2d_XML.xml(A,title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor)
             self.Next(self.tab_7, self.tab_ID,0)
             self.tab_2.setEnabled(True)
             self.tab_3.setEnabled(True)
             self.tab_4.setEnabled(True)
             self.tab_5.setEnabled(True)
             self.tab_6.setEnabled(True)
-        else:
-            MainDialog.close
+            A=A+1
+        elif response==QtGui.QMessageBox.No:
+            B2d_XML.xml(A,title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor)
+            h = QtGui.QMessageBox()
+            h.setWindowTitle('Information')
+            h.setText('The xml file has been created!')
+            h.exec_()
+            MainDialog.close()
         
 
 if __name__ == "__main__":

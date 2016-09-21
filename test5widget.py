@@ -53,6 +53,10 @@ for i in range(0,int(file_format.readline())+1):
     formatchoice.append(file_format.readline().rstrip('\n'))
 file_format.close()
 A=0
+
+use_lim=''
+process=''
+citation=''
 class Ui_MainDialog(object):
     def setupUi(self, MainDialog):
         MainDialog.setObjectName(_fromUtf8("MainDialog"))
@@ -647,33 +651,33 @@ class Ui_MainDialog(object):
         self.pushButton_Next1.setText(_translate("MainDialog", "Next >>", None))
         self.English.setText(_translate("MainDialog", "English", None))
         self.lineEdit_title.setPlaceholderText(_translate("MainDialog", "Title", None))
-        self.Title.setText(_translate("MainDialog", "Title", None))
-        self.Data_type.setText(_translate("MainDialog", "Data type", None))
+        self.Title.setText(_translate("MainDialog", "Title *", None))
+        self.Data_type.setText(_translate("MainDialog", "Data type *", None))
         self.comboBox_Datatype.setItemText(0, _translate("MainDialog", "Dataset", None))
         self.comboBox_Datatype.setItemText(1, _translate("MainDialog", "Series", None))
         self.comboBox_Datatype.setItemText(2, _translate("MainDialog", "Services", None))
-        self.Abstract.setText(_translate("MainDialog", "Abstract", None))
+        self.Abstract.setText(_translate("MainDialog", "Abstract *", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_ID), _translate("MainDialog", "Ressource identification", None))
         self.groupBox_time.setTitle(_translate("MainDialog", "Temporal extent", None))
         self.Tempend.setText(_translate("MainDialog", "End", None))
-        self.date1.setText(_translate("MainDialog", "Date", None))
+        self.date1.setText(_translate("MainDialog", "Date **", None))
         self.Tempstart.setText(_translate("MainDialog", "Start", None))
         self.radioButton_date.setText(_translate("MainDialog", "Date", None))
-        self.radioButton_temp.setText(_translate("MainDialog", "Temporal extent", None))
+        self.radioButton_temp.setText(_translate("MainDialog", "Temporal extent **", None))
         self.groupBox_geo.setTitle(_translate("MainDialog", "Geographical extent", None))
         self.Depth2.setText(_translate("MainDialog", "To", None))
         self.Depth1.setText(_translate("MainDialog", "Depth extent : From", None))
         self.comboBox_ref_geo.setItemText(0, _translate("MainDialog", "WGS84", None))
         self.comboBox_ref_geo.setItemText(1, _translate("MainDialog", "Lambert 93", None))
-        self.North.setText(_translate("MainDialog", "North", None))
+        self.North.setText(_translate("MainDialog", "North *", None))
         self.Coordinate_system.setText(_translate("MainDialog", "Geographic coordinate system", None))
         self.degreeEast1.setText(_translate("MainDialog", "° E", None))
-        self.South.setText(_translate("MainDialog", "South", None))
+        self.South.setText(_translate("MainDialog", "South *", None))
         self.degreeNord2.setText(_translate("MainDialog", "° N", None))
         self.degreeast2.setText(_translate("MainDialog", "° E", None))
         self.degreeN1.setText(_translate("MainDialog", "° N", None))
-        self.East.setText(_translate("MainDialog", "East", None))
-        self.West.setText(_translate("MainDialog", "West", None))
+        self.East.setText(_translate("MainDialog", "East *", None))
+        self.West.setText(_translate("MainDialog", "West *", None))
         self.pushButton_next2.setText(_translate("MainDialog", "Next >>", None))
         self.pushButton_previous2.setText(_translate("MainDialog", "<< Previous", None))
         self.Creation_date.setText(_translate("MainDialog", "Creation date", None))
@@ -682,15 +686,15 @@ class Ui_MainDialog(object):
         self.Nongeodataset.setText(_translate("MainDialog", "Non geographic dataset", None))
         self.GeoscientificInformation.setText(_translate("MainDialog", "Geoscientific information", None))
         self.Theme.setText(_translate("MainDialog", "Thematic category", None))
-        self.Subject_study.setText(_translate("MainDialog", "Subject study", None))
+        self.Subject_study.setText(_translate("MainDialog", "Subject study *", None))
         self.pushButton_subjectStudy_out.setText(_translate("MainDialog", "<<", None))
         self.pushButton_projectPhasein.setText(_translate("MainDialog", ">>", None))
         self.pushButton_previous3.setText(_translate("MainDialog", "<< Previous", None))
         self.pushButton_projectPhaseout.setText(_translate("MainDialog", "<<", None))
         self.pushButton_locationin.setText(_translate("MainDialog", ">>", None))
-        self.Variable.setText(_translate("MainDialog", "Variables", None))
+        self.Variable.setText(_translate("MainDialog", "Variables *", None))
         self.pushButton_next3.setText(_translate("MainDialog", "Next >>", None))
-        self.Location.setText(_translate("MainDialog", "Location", None))
+        self.Location.setText(_translate("MainDialog", "Location *", None))
         self.pushButton_variableout.setText(_translate("MainDialog", "<<", None))
         self.pushButton_subjectstudy_in.setText(_translate("MainDialog", ">>", None))
         self.pushButton_variablein.setText(_translate("MainDialog", ">>", None))
@@ -721,7 +725,7 @@ class Ui_MainDialog(object):
 
         self.listWidget_projectPhase1.setSortingEnabled(__sortingEnabled)
         self.pushButton_locationout.setText(_translate("MainDialog", "<<", None))
-        self.Project_phase.setText(_translate("MainDialog", "Project phase", None))
+        self.Project_phase.setText(_translate("MainDialog", "Project phase *", None))
         __sortingEnabled = self.listWidget_Location1.isSortingEnabled()
         self.listWidget_Location1.setSortingEnabled(False)
         ##
@@ -731,7 +735,7 @@ class Ui_MainDialog(object):
         ##    
         self.listWidget_Location1.setSortingEnabled(__sortingEnabled)
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainDialog", "Keywords", None))
-        self.Format.setText(_translate("MainDialog", "Format", None))
+        self.Format.setText(_translate("MainDialog", "Format *", None))
         self.pushButton_next4.setText(_translate("MainDialog", "Next >>", None))
         __sortingEnabled = self.listWidget_Format1.isSortingEnabled()
         self.listWidget_Format1.setSortingEnabled(False)
@@ -896,11 +900,17 @@ class Ui_MainDialog(object):
         "Action du bouton next du tab 4 quality"
         global format1, quality, process
         format1= []
-        self.Next(self.tab_4, self.tab_5,4)
         for index in range(self.listWidget_Format2.count()):
             format1.append(self.listWidget_Format2.item(index).text())
         quality=self.lineEdit_quality.text()
         process=self.textEdit_process.toPlainText()
+        if format1!=[]:
+            self.Next(self.tab_4, self.tab_5,4)
+        else:
+            d = QtGui.QMessageBox()
+            d.setWindowTitle('Error')
+            d.setText('Please enter a format')
+            d.exec_()
         
     def action_next5(self):
         "Action du bouton next du tab 5 contraints"
@@ -909,6 +919,7 @@ class Ui_MainDialog(object):
         access=self.comboBox_access.currentText()
         citation=self.textEdit_Citation.toPlainText()
         self.Next(self.tab_5, self.tab_6,5)
+
     
     def action_next6(self):
         "Action du bouton next du tab 6 contact"

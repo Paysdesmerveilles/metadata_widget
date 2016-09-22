@@ -1,5 +1,5 @@
 """Create xml file"""
-def xml(A,title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor):
+def xml(A,title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor, name):
     from lxml import etree
     from copy import deepcopy
     #Changement de direction
@@ -125,7 +125,7 @@ def xml(A,title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Cr
         root[8][0][4].remove(root[8][0][4][1])
     if owner1==0:
         root[8][0][4].remove(root[8][0][4][0])      
-    doc.write('Test/Test%d.xml' %A, xml_declaration=True)
+    doc.write('Test/XML_%s.xml' %name, xml_declaration=True)
 
 def condition_contact(type_contact, organisation, adress, city, post_code, country, mail, contact_list):
     if type_contact=='EOST/ IPGS':

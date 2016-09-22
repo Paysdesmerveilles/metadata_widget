@@ -134,10 +134,10 @@ class Ui_MainDialog(object):
         self.gridLayout_6.setObjectName(_fromUtf8("gridLayout_6"))
         self.dateEdit_tempend = QtGui.QDateEdit(self.groupBox_time)
         self.dateEdit_tempend.setObjectName(_fromUtf8("dateEdit_tempend"))
-        self.gridLayout_6.addWidget(self.dateEdit_tempend, 0, 5, 1, 1)#♥
+        self.gridLayout_6.addWidget(self.dateEdit_tempend, 0, 6, 1, 1)#♥
         self.Tempend = QtGui.QLabel(self.groupBox_time)
         self.Tempend.setObjectName(_fromUtf8("Tempend"))
-        self.gridLayout_6.addWidget(self.Tempend, 0, 4, 1, 1)
+        self.gridLayout_6.addWidget(self.Tempend, 0, 5, 1, 1)
         self.dateEdit_date = QtGui.QDateEdit(self.groupBox_time)
         self.dateEdit_date.setObjectName(_fromUtf8("dateEdit_date"))
         self.gridLayout_6.addWidget(self.dateEdit_date, 1, 2, 1, 1)
@@ -157,6 +157,19 @@ class Ui_MainDialog(object):
         self.dateEdit_tempstart = QtGui.QDateEdit(self.groupBox_time)
         self.dateEdit_tempstart.setObjectName(_fromUtf8("dateEdit_tempstart"))
         self.gridLayout_6.addWidget(self.dateEdit_tempstart, 0, 2, 1, 1)
+        self.timeEdit_start = QtGui.QTimeEdit(self.groupBox_time)
+        self.timeEdit_start.setObjectName(_fromUtf8("timeEdit_start"))
+        self.gridLayout_6.addWidget(self.timeEdit_start, 0, 3, 1, 1)
+#        spacerItem_time = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+#        self.gridLayout_6.addItem(spacerItem_time, 0, 4, 1, 1)
+        self.timeEdit_end = QtGui.QTimeEdit(self.groupBox_time)
+        self.timeEdit_end.setObjectName(_fromUtf8("timeEdit_end"))
+        self.gridLayout_6.addWidget(self.timeEdit_end, 0, 7, 1, 1)
+        spacerItem_time2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout_6.addItem(spacerItem_time2, 0, 8, 1, 1)
+        self.timeEdit_date = QtGui.QTimeEdit(self.groupBox_time)
+        self.timeEdit_date.setObjectName(_fromUtf8("timeEdit_date"))
+        self.gridLayout_6.addWidget(self.timeEdit_date, 1, 3, 1, 1)
         self.radioButton_temp = QtGui.QRadioButton(self.groupBox_time)
         self.radioButton_temp.setObjectName(_fromUtf8("radioButton_temp"))
         self.gridLayout_6.addWidget(self.radioButton_temp, 0, 0, 1, 1)
@@ -615,11 +628,70 @@ class Ui_MainDialog(object):
         QtCore.QObject.connect(self.pushButton_quit, QtCore.SIGNAL(_fromUtf8("clicked()")), MainDialog.close)
         QtCore.QObject.connect(self.pushButton_Next1, QtCore.SIGNAL(_fromUtf8("clicked()")), self.tabWidget.show)
         QtCore.QMetaObject.connectSlotsByName(MainDialog)
-        MainDialog.setTabOrder(self.pushButton_next2, self.comboBox_resourcOrganisation)
-        MainDialog.setTabOrder(self.comboBox_resourcOrganisation, self.pushButton_next6)
+        MainDialog.setTabOrder(self.tabWidget, self.lineEdit_title)
+        MainDialog.setTabOrder(self.lineEdit_title, self.textEdit_abstract)
+        MainDialog.setTabOrder(self.textEdit_abstract, self.comboBox_Datatype)
+        MainDialog.setTabOrder(self.comboBox_Datatype, self.pushButton_Next1)
+        MainDialog.setTabOrder(self.pushButton_Next1, self.comboBox_ref_geo)
+        MainDialog.setTabOrder(self.comboBox_ref_geo, self.doubleSpinBox_North)
+        MainDialog.setTabOrder(self.doubleSpinBox_North, self.doubleSpinBox_South1)
+        MainDialog.setTabOrder(self.doubleSpinBox_South1, self.doubleSpinBox_West)
+        MainDialog.setTabOrder(self.doubleSpinBox_West, self.doubleSpinBox_East)
+        MainDialog.setTabOrder(self.doubleSpinBox_East, self.doubleSpinBox_depth1)
+        MainDialog.setTabOrder(self.doubleSpinBox_depth1, self.doubleSpinBox_depth2)
+        MainDialog.setTabOrder(self.doubleSpinBox_depth2, self.radioButton_temp)
+        MainDialog.setTabOrder(self.radioButton_temp, self.dateEdit_tempstart)
+        MainDialog.setTabOrder(self.dateEdit_tempstart, self.timeEdit_start)
+        MainDialog.setTabOrder(self.timeEdit_start, self.dateEdit_tempend)
+        MainDialog.setTabOrder(self.dateEdit_tempend, self.timeEdit_end)
+        MainDialog.setTabOrder(self.timeEdit_end, self.radioButton_date)
+        MainDialog.setTabOrder(self.radioButton_date, self.dateEdit_date)
+        MainDialog.setTabOrder(self.dateEdit_date, self.timeEdit_date)
+        MainDialog.setTabOrder(self.timeEdit_date, self.dateEdit_creation_date)
+        MainDialog.setTabOrder(self.dateEdit_creation_date, self.pushButton_previous2)
+        MainDialog.setTabOrder(self.pushButton_previous2, self.pushButton_next2)
+        MainDialog.setTabOrder(self.pushButton_next2, self.listWidget_subjectStudy1)
+        MainDialog.setTabOrder(self.listWidget_subjectStudy1, self.pushButton_subjectstudy_in)
+        MainDialog.setTabOrder(self.pushButton_subjectstudy_in, self.listWidget_subjectStudy2)
+        MainDialog.setTabOrder(self.listWidget_subjectStudy2, self.pushButton_subjectStudy_out)
+        MainDialog.setTabOrder(self.pushButton_subjectStudy_out, self.listWidget_projectPhase1)
+        MainDialog.setTabOrder(self.listWidget_projectPhase1, self.pushButton_projectPhasein)
+        MainDialog.setTabOrder(self.pushButton_projectPhasein, self.listWidget_projectPhase2)
+        MainDialog.setTabOrder(self.listWidget_projectPhase2, self.pushButton_projectPhaseout)
+        MainDialog.setTabOrder(self.pushButton_projectPhaseout, self.listWidget_Location1)
+        MainDialog.setTabOrder(self.listWidget_Location1, self.pushButton_locationin)
+        MainDialog.setTabOrder(self.pushButton_locationin, self.listWidget_Location2)
+        MainDialog.setTabOrder(self.listWidget_Location2, self.pushButton_locationout)
+        MainDialog.setTabOrder(self.pushButton_locationout, self.listWidget_variable1)
+        MainDialog.setTabOrder(self.listWidget_variable1, self.pushButton_variablein)
+        MainDialog.setTabOrder(self.pushButton_variablein, self.listWidget_variable2)
+        MainDialog.setTabOrder(self.listWidget_variable2, self.pushButton_variableout)
+        MainDialog.setTabOrder(self.pushButton_variableout, self.pushButton_previous3)
+        MainDialog.setTabOrder(self.pushButton_previous3, self.pushButton_next3)
+        MainDialog.setTabOrder(self.pushButton_next3, self.listWidget_Format1)
+        MainDialog.setTabOrder(self.listWidget_Format1, self.pushButton_Formatin)
+        MainDialog.setTabOrder(self.pushButton_Formatin, self.listWidget_Format2)
+        MainDialog.setTabOrder(self.listWidget_Format2, self.pushButton_formatout)
+        MainDialog.setTabOrder(self.pushButton_formatout, self.lineEdit_quality)
+        MainDialog.setTabOrder(self.lineEdit_quality, self.pushButton_previous4)
+        MainDialog.setTabOrder(self.pushButton_previous4, self.pushButton_next4)
+        MainDialog.setTabOrder(self.pushButton_next4, self.lineEdit_useLimitation)
+        MainDialog.setTabOrder(self.lineEdit_useLimitation, self.comboBox_access)
+        MainDialog.setTabOrder(self.comboBox_access, self.textEdit_Citation)
+        MainDialog.setTabOrder(self.textEdit_Citation, self.pushButton_previous5)
+        MainDialog.setTabOrder(self.pushButton_previous5, self.pushButton_next5)
+        MainDialog.setTabOrder(self.pushButton_next5, self.checkBox_owner1)
+        MainDialog.setTabOrder(self.checkBox_owner1, self.comboBox_ownerOrganisation1)
+        MainDialog.setTabOrder(self.comboBox_ownerOrganisation1, self.checkBox_2)
+        MainDialog.setTabOrder(self.checkBox_2, self.comboBox_ownerOrganisation2)
+        MainDialog.setTabOrder(self.comboBox_ownerOrganisation2, self.comboBox_distributor)
+        MainDialog.setTabOrder(self.comboBox_distributor, self.comboBox_resourcOrganisation)
+        MainDialog.setTabOrder(self.comboBox_resourcOrganisation, self.pushButton_previous6)
+        MainDialog.setTabOrder(self.pushButton_previous6, self.pushButton_next6)
         MainDialog.setTabOrder(self.pushButton_next6, self.tableWidget_validation)
         MainDialog.setTabOrder(self.tableWidget_validation, self.pushButton_previous7)
         MainDialog.setTabOrder(self.pushButton_previous7, self.pushButton_validate)
+        MainDialog.setTabOrder(self.pushButton_validate, self.pushButton_quit)
         QtCore.QObject.connect(self.pushButton_Next1, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_next1)
         QtCore.QObject.connect(self.pushButton_next2, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_next2)
         QtCore.QObject.connect(self.pushButton_next3, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_next3)
@@ -660,9 +732,9 @@ class Ui_MainDialog(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_ID), _translate("MainDialog", "Ressource identification", None))
         self.groupBox_time.setTitle(_translate("MainDialog", "Temporal extent", None))
         self.Tempend.setText(_translate("MainDialog", "End", None))
-        self.date1.setText(_translate("MainDialog", "Date **", None))
+        self.date1.setText(_translate("MainDialog", "Date", None))
         self.Tempstart.setText(_translate("MainDialog", "Start", None))
-        self.radioButton_date.setText(_translate("MainDialog", "Date", None))
+        self.radioButton_date.setText(_translate("MainDialog", "Date **", None))
         self.radioButton_temp.setText(_translate("MainDialog", "Temporal extent **", None))
         self.groupBox_geo.setTitle(_translate("MainDialog", "Geographical extent", None))
         self.Depth2.setText(_translate("MainDialog", "To", None))
@@ -827,7 +899,7 @@ class Ui_MainDialog(object):
         
     def action_next2(self):
         "Action du bouton next du tab 2"
-        global georef, North, South, East, West, Depth1, Depth2, date, T1, T2, Creation_date
+        global georef, North, South, East, West, Depth1, Depth2, date, T1, T2, Creation_date,  h2
         georef=self.comboBox_ref_geo.currentText()
         North=self.doubleSpinBox_North.value()
         South=self.doubleSpinBox_South1.value()
@@ -838,10 +910,13 @@ class Ui_MainDialog(object):
         creation_date=[str(self.dateEdit_creation_date.date().year()),str(self.dateEdit_creation_date.date().month()), str(self.dateEdit_creation_date.date().day())]
         Creation_date=creation_date[0]+'-'+creation_date[1]+'-'+creation_date[2]
         if self.radioButton_temp.isChecked()==1:
-            t1=[str(self.dateEdit_tempstart.date().year()), str(self.dateEdit_tempstart.date().month()), str(self.dateEdit_tempstart.date().day())]
-            T1=t1[0]+'-'+t1[1]+'-'+t1[2]
-            t2=[str(self.dateEdit_tempend.date().year()), str(self.dateEdit_tempend.date().month()), str(self.dateEdit_tempend.date().day())]
-            T2=t2[0]+'-'+t2[1]+'-'+t2[2]
+            t1=self.dateEdit_tempstart.date().toString('dd-MM-yyyy')
+            h1=self.timeEdit_start.time().toString('hh:mm:ss')
+            T1=t1+'T'+h1
+            t2=self.dateEdit_tempend.date().toString('dd-MM-yyyy')
+            h2=self.timeEdit_end.time().toString('hh:mm:ss')
+            T2=t2+'T'+h2
+         
             if T1>=T2:
                 g = QtGui.QMessageBox()
                 g.setWindowTitle('Error')
@@ -941,19 +1016,20 @@ class Ui_MainDialog(object):
         self.tableWidget_validation.insertRow(rowPosition)
         for i in range(0, self.tableWidget_validation.columnCount()):
             self.tableWidget_validation.setItem(rowPosition, i, QtGui.QTableWidgetItem(result[i]))
-
-        
+           
         
     def Next(self, tab1, tab2, tabnumber_tab1):
         tab1.hide()
         tab2.show()
         tab2.setEnabled(True)
+        tab1.setEnabled(False)
         self.tabWidget.setCurrentIndex(tabnumber_tab1)
                
     def Previous(self, tab1, tab2, tabnumber_tab1):
         tab2.hide()
         tab1.show()
         tab2.setEnabled(False)
+        tab1.setEnabled(True)
         self.tabWidget.setCurrentIndex(tabnumber_tab1)        
             
     def Arrow(self, W1, W2):

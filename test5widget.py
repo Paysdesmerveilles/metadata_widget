@@ -54,7 +54,7 @@ for i in range(0,int(file_format.readline())+1):
 file_format.close()
 A=0
 
-use_lim=''
+use_lim='' #Comme ces valeurs ne sont pas obligatoires, on est obligés de les initialiser car elles sont utilisés dans la fonction B2d_XML
 process=''
 citation=''
 class Ui_MainDialog(object):
@@ -431,7 +431,7 @@ class Ui_MainDialog(object):
         self.Quality.setObjectName(_fromUtf8("Quality"))
         self.gridLayout_8.addWidget(self.Quality, 4, 0, 1, 1)
         self.process=QtGui.QLabel(self.tab_4)
-        self.process.setObjectName(_fromUtf8("Process"))
+        self.process.setObjectName(_fromUtf8("Processing"))
         self.gridLayout_8.addWidget(self.process, 6, 0, 1, 1)
         self.pushButton_previous4 = QtGui.QPushButton(self.tab_4)
         self.pushButton_previous4.setObjectName(_fromUtf8("pushButton_previous4"))
@@ -567,11 +567,18 @@ class Ui_MainDialog(object):
         self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
         self.pushButton_validate = QtGui.QPushButton(self.tab_7)
         self.pushButton_validate.setObjectName(_fromUtf8("pushButton_validate"))
-        self.gridLayout_2.addWidget(self.pushButton_validate, 2, 2, 1, 1)
+        self.gridLayout_2.addWidget(self.pushButton_validate, 3, 3, 1, 1)
         self.tableWidget_validation = QtGui.QTableWidget(self.tab_7)
         self.tableWidget_validation.setObjectName(_fromUtf8("tableWidget_validation"))
         self.tableWidget_validation.setColumnCount(8)
         self.tableWidget_validation.setRowCount(0)
+        self.lineEdit_name = QtGui.QLineEdit(self.tab_7)
+        self.lineEdit_name.setLayoutDirection(QtCore.Qt.RightToLeft)
+        self.lineEdit_name.setObjectName(_fromUtf8("lineEdit_name"))
+        self.gridLayout_2.addWidget(self.lineEdit_name, 1, 2, 1, 1)
+        self.name = QtGui.QLabel(self.tab_ID)
+        self.name.setObjectName(_fromUtf8("name"))
+        self.gridLayout_2.addWidget(self.name, 1, 1, 1, 1)
         
         item = QtGui.QTableWidgetItem()
         self.tableWidget_validation.setHorizontalHeaderItem(0, item)
@@ -818,13 +825,13 @@ class Ui_MainDialog(object):
         self.listWidget_Format1.setSortingEnabled(__sortingEnabled)
         self.pushButton_Formatin.setText(_translate("MainDialog", ">>", None))
         self.Quality.setText(_translate("MainDialog", "Quality", None))
-        self.process.setText(_translate("MainDialog", "Process steps", None))
+        self.process.setText(_translate("MainDialog", "Processing steps", None))
         self.pushButton_previous4.setText(_translate("MainDialog", "<< Previous", None))
         self.pushButton_formatout.setText(_translate("MainDialog", "<<", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), _translate("MainDialog", "Quality", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), _translate("MainDialog", "Process", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), _translate("MainDialog", "Processing", None))
         self.pushButton_next5.setText(_translate("MainDialog", "Next >>", None))
-        self.Acces.setText(_translate("MainDialog", "Access contraints", None))
+        self.Acces.setText(_translate("MainDialog", "Access contraints *", None))
         self.Citation.setText(_translate("MainDialog", "Citation", None))
         self.pushButton_previous5.setText(_translate("MainDialog", "<< Previous", None))
         self.Use_limitation.setText(_translate("MainDialog", "Use limitation", None))
@@ -858,6 +865,7 @@ class Ui_MainDialog(object):
         self.comboBox_ownerOrganisation2.setItemText(2, _translate("MainDialog", "BRGM", None))
         self.comboBox_ownerOrganisation2.setItemText(3, _translate("MainDialog", "Es Géothermie", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_6), _translate("MainDialog", "Contacts", None))
+        self.name.setText(_translate("MainDialog", "Saving name", None))
         self.pushButton_validate.setText(_translate("MainDialog", "Validate", None))
         item = self.tableWidget_validation.horizontalHeaderItem(0)
         item.setText(_translate("MainDialog", "Title", None))
@@ -929,12 +937,12 @@ class Ui_MainDialog(object):
             T1=t1[0]+'-'+t1[1]+'-'+t1[2]
             T2='0'
             T3=1
-        if North<South:
+        if North<=South:
             e = QtGui.QMessageBox()
             e.setWindowTitle('Error')
             e.setText('North value should be higher than the South value')
             e.exec_()  
-        elif West>East:
+        elif West>=East:
             f = QtGui.QMessageBox()
             f.setWindowTitle('Error')
             f.setText('East value should be higher than the West value')
@@ -1092,34 +1100,41 @@ class Ui_MainDialog(object):
         self.tableWidget_validation.removeRow(rowPosition-1)
 
     def validate(self):
-        global A
-        e = QtGui.QMessageBox()
-        e.setWindowTitle('Information')
-        e.setText('Do you want to continue ?')
-        e.addButton( QtGui.QMessageBox.Yes)
-        e.addButton( QtGui.QMessageBox.No)
-        e.setDefaultButton(QtGui.QMessageBox.No)
-        response=e.exec_() 
-        if response==QtGui.QMessageBox.Yes:
-            g = QtGui.QMessageBox()
-            g.setWindowTitle('Information')
-            g.setText('The xml file is created!')
-            g.exec_() 
-            B2d_XML.xml(A,title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor)
-            self.Next(self.tab_7, self.tab_ID,0)
-            self.tab_2.setEnabled(True)
-            self.tab_3.setEnabled(True)
-            self.tab_4.setEnabled(True)
-            self.tab_5.setEnabled(True)
-            self.tab_6.setEnabled(True)
-            A=A+1
-        elif response==QtGui.QMessageBox.No:
-            B2d_XML.xml(A,title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor)
-            h = QtGui.QMessageBox()
-            h.setWindowTitle('Information')
-            h.setText('The xml file has been created!')
-            h.exec_()
-            MainDialog.close()
+        global A, name
+        name=self.lineEdit_name.text()
+        if name!='':
+            e = QtGui.QMessageBox()
+            e.setWindowTitle('Information')
+            e.setText('Do you want to continue ?')
+            e.addButton( QtGui.QMessageBox.Yes)
+            e.addButton( QtGui.QMessageBox.No)
+            e.setDefaultButton(QtGui.QMessageBox.No)
+            response=e.exec_()        
+            if response==QtGui.QMessageBox.Yes:
+                g = QtGui.QMessageBox()
+                g.setWindowTitle('Information')
+                g.setText('The xml file is created!')
+                g.exec_() 
+                B2d_XML.xml(A,title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor, name)
+                self.Next(self.tab_7, self.tab_ID,0)
+                self.tab_2.setEnabled(True)
+                self.tab_3.setEnabled(True)
+                self.tab_4.setEnabled(True)
+                self.tab_5.setEnabled(True)
+                self.tab_6.setEnabled(True)
+                A=A+1
+            elif response==QtGui.QMessageBox.No:
+                B2d_XML.xml(A,title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor,name)
+                h = QtGui.QMessageBox()
+                h.setWindowTitle('Information')
+                h.setText('The xml file has been created!')
+                h.exec_()
+                MainDialog.close()
+        else:
+            f = QtGui.QMessageBox()
+            f.setWindowTitle('Error')
+            f.setText('Please enter a name!')
+            f.exec_()    
         
 
 if __name__ == "__main__":

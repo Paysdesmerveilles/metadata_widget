@@ -2,6 +2,7 @@
 #Ilport of QT module
 
 import B2d_XML
+import XML_B2d
 from PyQt4 import QtCore, QtGui
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -83,6 +84,9 @@ class Ui_MainDialog(object):
         self.Language = QtGui.QLabel(self.tab_ID)
         self.Language.setObjectName(_fromUtf8("Language"))
         self.gridLayout_3.addWidget(self.Language, 7, 0, 1, 1)
+        self.pushButton_browse = QtGui.QPushButton(MainDialog)
+        self.pushButton_browse.setObjectName(_fromUtf8("pushButton_browse"))
+        self.gridLayout_3.addWidget(self.pushButton_browse, 8, 3, 1, 1)
         self.pushButton_Next1 = QtGui.QPushButton(self.tab_ID)
         self.pushButton_Next1.setObjectName(_fromUtf8("pushButton_Next1"))
         self.gridLayout_3.addWidget(self.pushButton_Next1, 9, 3, 1, 1)
@@ -722,11 +726,14 @@ class Ui_MainDialog(object):
         QtCore.QObject.connect(self.pushButton_previous6, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_previous6)
         QtCore.QObject.connect(self.pushButton_previous7, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_previous7)
         QtCore.QObject.connect(self.pushButton_validate, QtCore.SIGNAL(_fromUtf8("clicked()")), self.validate)
+        QtCore.QObject.connect(self.pushButton_browse, QtCore.SIGNAL(_fromUtf8("clicked()")), self.browse)
+
         
     def retranslateUi(self, MainDialog):
         MainDialog.setWindowTitle(_translate("MainDialog", "Metadata implementation for GeoNetwork", None))
         self.pushButton_quit.setText(_translate("MainDialog", "Quit", None))
         self.Language.setText(_translate("MainDialog", "Language", None))
+        self.pushButton_browse.setText(_translate("MainDialog", "Browse ...", None))
         self.pushButton_Next1.setText(_translate("MainDialog", "Next >>", None))
         self.English.setText(_translate("MainDialog", "English", None))
         self.lineEdit_title.setPlaceholderText(_translate("MainDialog", "Title", None))
@@ -935,7 +942,7 @@ class Ui_MainDialog(object):
         elif self.radioButton_date.isChecked()==1:
             t1=[str(self.dateEdit_date.date().year()),str(self.dateEdit_date.date().month()),str(self.dateEdit_date.date().day())]
             T1=t1[0]+'-'+t1[1]+'-'+t1[2]
-            T2='0'
+            T2=''
             T3=1
         if North<=South:
             e = QtGui.QMessageBox()
@@ -1021,7 +1028,8 @@ class Ui_MainDialog(object):
             owner1=0
             owner2=0
         rowPosition=self.tableWidget_validation.rowCount()
-        self.tableWidget_validation.insertRow(rowPosition)
+        self.tableWidget_validation.clearContents()
+        self.tableWidget_validation.insertRow(0)#rowPosition)
         for i in range(0, self.tableWidget_validation.columnCount()):
             self.tableWidget_validation.setItem(rowPosition, i, QtGui.QTableWidgetItem(result[i]))
            
@@ -1135,8 +1143,82 @@ class Ui_MainDialog(object):
             f.setWindowTitle('Error')
             f.setText('Please enter a name!')
             f.exec_()    
-        
+###########################################################################################################################################   
+    def browse(self):
+        global A, name, title, abstract, data_type, georef, North, South, East, West, Depth1, Depth2, date, T1, T2, Creation_date,  h2, subject_Study, project_Phase, location, variables, format1, quality, process, use_lim, access, citation, owner1, owner2, distributor, resource_contact, result
+        filePath=QtGui.QFileDialog.getOpenFileName(MainDialog, '/Users/Standard/Documents/Programme/Widget/Test', '*.xml')
+        title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1, T2, t1,h1,t2,h2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor=XML_B2d.xml2B2d(str(filePath))
+        self.tab_2.setEnabled(True)
+        self.tab_3.setEnabled(True)
+        self.tab_4.setEnabled(True)
+        self.tab_5.setEnabled(True)
+        self.tab_6.setEnabled(True)
 
+        self.lineEdit_title.setText(title)
+        self.textEdit_abstract.setText(abstract)
+        
+        self.comboBox_Datatype.setCurrentIndex(self.comboBox_Datatype.findText(data_type, QtCore.Qt.MatchFixedString))
+#        georef=self.comboBox_ref_geo.currentText()
+        self.doubleSpinBox_North.setValue(North)
+        self.doubleSpinBox_South1.setValue(South)
+        self.doubleSpinBox_East.setValue(East)
+        self.doubleSpinBox_West.setValue(West)
+        self.doubleSpinBox_depth1.setValue(Depth1)
+        self.doubleSpinBox_depth2.setValue(Depth2)
+        self.dateEdit_creation_date.setDate(QtCore.QDate.fromString(Creation_date, 'yyyy-MM-dd'))
+        if T2=='':
+            self.radioButton_date.setChecked(True)
+            self.dateEdit_date.setDate(QtCore.QDate.fromString(t1, 'yyyy-MM-dd'))
+            self.timeEdit_date.setTime(QtCore.QTime.fromString(h1))
+        else:
+            self.radioButton_temp.setChecked(True)
+            self.dateEdit_tempstart.setDate(QtCore.QDate.fromString(t1, 'yyyy-MM-dd'))
+            self.timeEdit_start.setTime(QtCore.QTime.fromString(h1))
+            self.dateEdit_tempend.setDate(QtCore.QDate.fromString(t2, 'yyyy-MM-dd'))
+            self.timeEdit_end.setTime(QtCore.QTime.fromString(h2))
+            
+        self.arrow2(self.listWidget_subjectStudy1,self.listWidget_subjectStudy2, subject_Study)
+        self.arrow2(self.listWidget_projectPhase1, self.listWidget_projectPhase2, project_Phase)
+        self.arrow2(self.listWidget_Location1, self.listWidget_Location2,location )
+        self.arrow2(self.listWidget_variable1, self.listWidget_variable2,variables )
+        self.arrow2(self.listWidget_Format1, self.listWidget_Format2, format1)
+        self.lineEdit_quality.setText(quality)
+        self.textEdit_process.setText(process)
+        self.lineEdit_useLimitation.setText(use_lim)
+        self.comboBox_access.setCurrentIndex(self.comboBox_access.findText(access,QtCore.Qt.MatchFixedString))
+        self.textEdit_Citation.setText(citation)
+        self.comboBox_distributor.setCurrentIndex(self.comboBox_distributor.findText(distributor, QtCore.Qt.MatchFixedString))
+        self.comboBox_resourcOrganisation.setCurrentIndex(self.comboBox_resourcOrganisation.findText(resource_contact, QtCore.Qt.MatchFixedString))
+        result=[title, abstract,T1, T2, str(North), str(West), str(South), str(East)]
+
+        if owner1==0 and owner2==0:
+            self.checkBox_owner1.setChecked(False)
+            self.checkBox_2.setChecked(False)
+        elif owner1!=0 and owner2==0:
+            self.checkBox_owner1.setChecked(True)
+            self.checkBox_2.setChecked(False)
+            self.comboBox_ownerOrganisation1.setCurrentIndex(self.comboBox_ownerOrganisation1.findText(owner1, QtCore.Qt.MatchFixedString))
+        else:
+            self.checkBox_owner1.setChecked(True)
+            self.checkBox_2.setChecked(True)
+            self.comboBox_ownerOrganisation1.setCurrentIndex(self.comboBox_ownerOrganisation1.findText(owner1, QtCore.Qt.MatchFixedString))
+            self.comboBox_ownerOrganisation2.setCurrentIndex(self.comboBox_ownerOrganisation2.findText(owner2, QtCore.Qt.MatchFixedString))
+        self.tableWidget_validation.insertRow(0)
+        for i in range(0, self.tableWidget_validation.columnCount()):
+            self.tableWidget_validation.setItem(0, i, QtGui.QTableWidgetItem(result[i]))
+
+            
+    def arrow2(self, W1, W2, variable):
+        global item2
+        for i in range(0, len(variable)):       
+            item1=QtGui.QListWidgetItem(variable[i])
+            W2.addItem(item1)
+            item2=W1.findItems(variable[i],  QtCore.Qt.MatchFixedString)
+            W1.takeItem(W1.row(item2[0]))
+
+
+  ##############################################################################################################♣          
+            
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)

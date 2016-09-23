@@ -14,7 +14,7 @@ def xml(A,title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Cr
     root=doc.getroot()
     Title_xml=root[8][0][0][0][0][0]
     Abstract_xml=root[8][0][1][0]
-    Data_type_xml=root[10][0][0][0][0][0].attrib['codeListValue']
+#    Data_type_xml=root[10][0][0][0][0][0].attrib['codeListValue']
     North_xml=root[8][0][20][0][1][0][3][0]
     East_xml=root[8][0][20][0][1][0][1][0]
     South_xml=root[8][0][20][0][1][0][2][0]
@@ -27,7 +27,7 @@ def xml(A,title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Cr
     Quality_xml=root[10][0][1][0][0][0]
     Process_step_xml=root[10][0][1][0][1][0][0][0]
     Use_xml=root[8][0][13][0][0][0]
-    Access_xml=root[8][0][13][0][1][0].attrib['codeListValue']
+#    Access_xml=root[8][0][13][0][1][0].attrib['codeListValue']
     Citation_xml=root[10][0][1][0][1][0][1][0][0][0]
     POC_Organisation_xml=root[3][0][0][0]
     POC_Adress_xml=root[3][0][2][0][1][0][0][0]
@@ -61,7 +61,7 @@ def xml(A,title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Cr
     
     Title_xml.text=title
     Abstract_xml.text=abstract
-    Data_type_xml=data_type
+    root[10][0][0][0][0][0].attrib['codeListValue']=data_type
     North_xml.text=str(North)
     East_xml.text=str(East)
     South_xml.text=str(South)
@@ -114,7 +114,7 @@ def xml(A,title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Cr
     Quality_xml.text=quality
     Process_step_xml.text=process
     Use_xml.text=use_lim
-    Access_xml=access
+    root[8][0][13][0][1][0].attrib['codeListValue']=access
     Citation_xml.text=citation
     #root[8][0][4].append(deepcopy(root[8][0][4][1]))
     condition_contact(resource_contact,POC_Organisation_xml,POC_Adress_xml, POC_City_xml,POC_Postalcode_xml , POC_Country_xml, POC_email_xml, contact_list)
@@ -125,7 +125,7 @@ def xml(A,title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Cr
         root[8][0][4].remove(root[8][0][4][1])
     if owner1==0:
         root[8][0][4].remove(root[8][0][4][0])      
-    doc.write('Test/XML_%s.xml' %name, xml_declaration=True)
+    doc.write('Test/XML_%s_%d.xml' %(name,A), xml_declaration=True)
 
 def condition_contact(type_contact, organisation, adress, city, post_code, country, mail, contact_list):
     if type_contact=='EOST/ IPGS':

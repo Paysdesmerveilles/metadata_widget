@@ -1,8 +1,7 @@
 """Create xml file"""
 def xml2B2d(filePath):
-    global title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor
+    global title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,T3, t1, h1, t2, h2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor
     from lxml import etree
-    from os import chdir
     import csv
     with open('Contact.csv', 'r') as f:
         reader = csv.reader(f, delimiter=';')
@@ -46,13 +45,19 @@ def xml2B2d(filePath):
     West=float(West_xml.text)
     Depth1=float(Depth1_xml.text)
     Depth2=float(Depth2_xml.text)
-    T1=Date1_xml.text
-    T2=Date2_xml.text
-    [t1, h1]=T1.split('T')
-    [t2, h2]=T2.split('T') 
     Creation_date=Creation_date_xml.text
-    
-    
+    T1=Date1_xml.text
+    [t1, h1]=T1.split('T')
+    T2=Date2_xml.text
+    if type(T2)==str:
+        [t2, h2]=T2.split('T')
+        T3=1
+    else:
+        T3=0
+        t2=None
+        h2=None
+
+
     subject_Study=[]
     Len_su=len(root[8][0][9][0])
     for i in range(0, Len_su-2):
@@ -100,5 +105,5 @@ def xml2B2d(filePath):
     
     resource_contact=POC_Organisation_xml.text
     distributor=D_Organisation_xml.text
-    print(title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor)
-    return title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1, T2, t1,h1,t2,h2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor
+    print(title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1, T2,T3, t1,h1,t2,h2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor)
+    return title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1, T2,T3, t1,h1,t2,h2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor

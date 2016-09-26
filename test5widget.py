@@ -70,6 +70,7 @@ class Ui_MainDialog(object):
         self.pushButton_quit.setObjectName(_fromUtf8("pushButton_quit"))
         self.gridLayout.addWidget(self.pushButton_quit, 1, 1, 1, 1)
         self.tabWidget = QtGui.QTabWidget(MainDialog)
+        self.tabWidget.tabBar().disable()
         self.tabWidget.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.tabWidget.setTabShape(QtGui.QTabWidget.Rounded)
         self.tabWidget.setObjectName(_fromUtf8("tabWidget"))
@@ -86,7 +87,10 @@ class Ui_MainDialog(object):
         self.gridLayout_3.addWidget(self.Language, 7, 0, 1, 1)
         self.pushButton_browse = QtGui.QPushButton(MainDialog)
         self.pushButton_browse.setObjectName(_fromUtf8("pushButton_browse"))
-        self.gridLayout_3.addWidget(self.pushButton_browse, 8, 3, 1, 1)
+        self.gridLayout_3.addWidget(self.pushButton_browse, 9, 1, 1, 1)
+        self.pushButton_clear = QtGui.QPushButton(MainDialog)
+        self.pushButton_clear.setObjectName(_fromUtf8("pushButton_clear"))
+        self.gridLayout_3.addWidget(self.pushButton_clear, 9, 0, 1, 1)
         self.pushButton_Next1 = QtGui.QPushButton(self.tab_ID)
         self.pushButton_Next1.setObjectName(_fromUtf8("pushButton_Next1"))
         self.gridLayout_3.addWidget(self.pushButton_Next1, 9, 3, 1, 1)
@@ -127,7 +131,7 @@ class Ui_MainDialog(object):
         spacerItem5 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.gridLayout_3.addItem(spacerItem5, 1, 2, 1, 1)
         self.tabWidget.addTab(self.tab_ID, _fromUtf8(""))
-        self.tab_2 = QtGui.QWidget()
+        self.tab_2 = QtGui.QWidget() 
         self.tab_2.setEnabled(False)
         self.tab_2.setObjectName(_fromUtf8("tab_2"))
         self.gridLayout_4 = QtGui.QGridLayout(self.tab_2)
@@ -361,6 +365,7 @@ class Ui_MainDialog(object):
         self.listWidget_variable1 = QtGui.QListWidget(self.tab_3)
         self.listWidget_variable1.setObjectName(_fromUtf8("listWidget_variable1"))
         ##
+
         for i in range(0, len(variablechoice)-1) :
             item = QtGui.QListWidgetItem()
             self.listWidget_variable1.addItem(item)         
@@ -576,13 +581,6 @@ class Ui_MainDialog(object):
         self.tableWidget_validation.setObjectName(_fromUtf8("tableWidget_validation"))
         self.tableWidget_validation.setColumnCount(8)
         self.tableWidget_validation.setRowCount(0)
-        self.lineEdit_name = QtGui.QLineEdit(self.tab_7)
-        self.lineEdit_name.setLayoutDirection(QtCore.Qt.RightToLeft)
-        self.lineEdit_name.setObjectName(_fromUtf8("lineEdit_name"))
-        self.gridLayout_2.addWidget(self.lineEdit_name, 1, 2, 1, 1)
-        self.name = QtGui.QLabel(self.tab_ID)
-        self.name.setObjectName(_fromUtf8("name"))
-        self.gridLayout_2.addWidget(self.name, 1, 1, 1, 1)
         
         item = QtGui.QTableWidgetItem()
         self.tableWidget_validation.setHorizontalHeaderItem(0, item)
@@ -604,7 +602,7 @@ class Ui_MainDialog(object):
         self.gridLayout_2.addWidget(self.tableWidget_validation, 0, 0, 1, 3)
         self.pushButton_previous7 = QtGui.QPushButton(self.tab_7)
         self.pushButton_previous7.setObjectName(_fromUtf8("pushButton_previous7"))
-        self.gridLayout_2.addWidget(self.pushButton_previous7, 2, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.pushButton_previous7, 3, 0, 1, 1)
         spacerItem26 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.gridLayout_2.addItem(spacerItem26, 1, 0, 1, 1)
         spacerItem27 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
@@ -727,13 +725,14 @@ class Ui_MainDialog(object):
         QtCore.QObject.connect(self.pushButton_previous7, QtCore.SIGNAL(_fromUtf8("clicked()")), self.action_previous7)
         QtCore.QObject.connect(self.pushButton_validate, QtCore.SIGNAL(_fromUtf8("clicked()")), self.validate)
         QtCore.QObject.connect(self.pushButton_browse, QtCore.SIGNAL(_fromUtf8("clicked()")), self.browse)
-
+        QtCore.QObject.connect(self.pushButton_clear, QtCore.SIGNAL(_fromUtf8("clicked()")), self.reset)
         
     def retranslateUi(self, MainDialog):
         MainDialog.setWindowTitle(_translate("MainDialog", "Metadata implementation for GeoNetwork", None))
         self.pushButton_quit.setText(_translate("MainDialog", "Quit", None))
         self.Language.setText(_translate("MainDialog", "Language", None))
-        self.pushButton_browse.setText(_translate("MainDialog", "Browse ...", None))
+        self.pushButton_browse.setText(_translate("MainDialog", "Upload xml metadata ...", None))
+        self.pushButton_clear.setText(_translate("MainDialog", "Clear", None))
         self.pushButton_Next1.setText(_translate("MainDialog", "Next >>", None))
         self.English.setText(_translate("MainDialog", "English", None))
         self.lineEdit_title.setPlaceholderText(_translate("MainDialog", "Title", None))
@@ -789,7 +788,6 @@ class Ui_MainDialog(object):
         for i in range(0, len(variablechoice)-1):
             item = self.listWidget_variable1.item(i)
             item.setText(_translate("MainDialog", variablechoice[i], None)) 
-            
 
         self.listWidget_variable1.setSortingEnabled(__sortingEnabled)
         __sortingEnabled = self.listWidget_subjectStudy1.isSortingEnabled()
@@ -828,7 +826,9 @@ class Ui_MainDialog(object):
         ##
         for i in range(0, len(formatchoice)-1):
             item = self.listWidget_Format1.item(i)
-            item.setText(_translate("MainDialog", formatchoice[i], None))            
+            item.setText(_translate("MainDialog", formatchoice[i], None))
+
+            
         self.listWidget_Format1.setSortingEnabled(__sortingEnabled)
         self.pushButton_Formatin.setText(_translate("MainDialog", ">>", None))
         self.Quality.setText(_translate("MainDialog", "Quality", None))
@@ -847,7 +847,7 @@ class Ui_MainDialog(object):
         self.comboBox_access.setItemText(2, _translate("MainDialog", "Public", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), _translate("MainDialog", "Contraints", None))
         self.groupBox_resourceContact.setTitle(_translate("MainDialog", "Resource contact", None))
-        self.ResourceOrganisation.setText(_translate("MainDialog", "Organization", None))
+        self.ResourceOrganisation.setText(_translate("MainDialog", "Organisation", None))
         self.comboBox_resourcOrganisation.setItemText(0, _translate("MainDialog", "EOST/ IPGS", None))
         self.comboBox_resourcOrganisation.setItemText(1, _translate("MainDialog", "GEIE", None))
         self.comboBox_resourcOrganisation.setItemText(2, _translate("MainDialog", "BRGM", None))
@@ -855,7 +855,7 @@ class Ui_MainDialog(object):
         self.pushButton_next6.setText(_translate("MainDialog", "Next >>", None))
         self.pushButton_previous6.setText(_translate("MainDialog", "<< Previous", None))
         self.groupBox_distributor.setTitle(_translate("MainDialog", "Distributor", None))
-        self.Organization_distributor.setText(_translate("MainDialog", "Organization", None))
+        self.Organization_distributor.setText(_translate("MainDialog", "Organisation", None))
         self.comboBox_distributor.setItemText(0, _translate("MainDialog", "EOST/ IPGS", None))
         self.comboBox_distributor.setItemText(1, _translate("MainDialog", "GEIE", None))
         self.comboBox_distributor.setItemText(2, _translate("MainDialog", "BRGM", None))
@@ -865,14 +865,13 @@ class Ui_MainDialog(object):
         self.comboBox_ownerOrganisation1.setItemText(1, _translate("MainDialog", "GEIE", None))
         self.comboBox_ownerOrganisation1.setItemText(2, _translate("MainDialog", "BRGM", None))
         self.comboBox_ownerOrganisation1.setItemText(3, _translate("MainDialog", "Es Géothermie", None))
-        self.checkBox_owner1.setText(_translate("MainDialog", "Organization1", None))
-        self.checkBox_2.setText(_translate("MainDialog", "Organization1", None))
+        self.checkBox_owner1.setText(_translate("MainDialog", "Organisation 1", None))
+        self.checkBox_2.setText(_translate("MainDialog", "Organisation 2", None))
         self.comboBox_ownerOrganisation2.setItemText(0, _translate("MainDialog", "EOST/ IPGS", None))
         self.comboBox_ownerOrganisation2.setItemText(1, _translate("MainDialog", "GEIE", None))
         self.comboBox_ownerOrganisation2.setItemText(2, _translate("MainDialog", "BRGM", None))
         self.comboBox_ownerOrganisation2.setItemText(3, _translate("MainDialog", "Es Géothermie", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_6), _translate("MainDialog", "Contacts", None))
-        self.name.setText(_translate("MainDialog", "Saving name", None))
         self.pushButton_validate.setText(_translate("MainDialog", "Validate", None))
         item = self.tableWidget_validation.horizontalHeaderItem(0)
         item.setText(_translate("MainDialog", "Title", None))
@@ -940,8 +939,9 @@ class Ui_MainDialog(object):
             else:
                 T3=1
         elif self.radioButton_date.isChecked()==1:
-            t1=[str(self.dateEdit_date.date().year()),str(self.dateEdit_date.date().month()),str(self.dateEdit_date.date().day())]
-            T1=t1[0]+'-'+t1[1]+'-'+t1[2]
+            t1=self.dateEdit_tempstart.date().toString('dd-MM-yyyy')
+            h1=self.timeEdit_start.time().toString('hh:mm:ss')
+            T1=t1+'T'+h1
             T2=''
             T3=1
         if North<=South:
@@ -1027,8 +1027,8 @@ class Ui_MainDialog(object):
         elif self.checkBox_owner1.isChecked()==0 and self.checkBox_2.isChecked()==0:
             owner1=0
             owner2=0
+        self.tableWidget_validation.removeRow(0)
         rowPosition=self.tableWidget_validation.rowCount()
-        self.tableWidget_validation.clearContents()
         self.tableWidget_validation.insertRow(0)#rowPosition)
         for i in range(0, self.tableWidget_validation.columnCount()):
             self.tableWidget_validation.setItem(rowPosition, i, QtGui.QTableWidgetItem(result[i]))
@@ -1109,54 +1109,48 @@ class Ui_MainDialog(object):
 
     def validate(self):
         global A, name
-        name=self.lineEdit_name.text()
-        if name!='':
-            e = QtGui.QMessageBox()
-            e.setWindowTitle('Information')
-            e.setText('Do you want to continue ?')
-            e.addButton( QtGui.QMessageBox.Yes)
-            e.addButton( QtGui.QMessageBox.No)
-            e.setDefaultButton(QtGui.QMessageBox.No)
-            response=e.exec_()        
-            if response==QtGui.QMessageBox.Yes:
-                g = QtGui.QMessageBox()
-                g.setWindowTitle('Information')
-                g.setText('The xml file is created!')
-                g.exec_() 
-                B2d_XML.xml(A,title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor, name)
-                self.Next(self.tab_7, self.tab_ID,0)
-                self.tab_2.setEnabled(True)
-                self.tab_3.setEnabled(True)
-                self.tab_4.setEnabled(True)
-                self.tab_5.setEnabled(True)
-                self.tab_6.setEnabled(True)
-                A=A+1
-            elif response==QtGui.QMessageBox.No:
-                B2d_XML.xml(A,title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor,name)
-                h = QtGui.QMessageBox()
-                h.setWindowTitle('Information')
-                h.setText('The xml file has been created!')
-                h.exec_()
-                MainDialog.close()
-        else:
-            f = QtGui.QMessageBox()
-            f.setWindowTitle('Error')
-            f.setText('Please enter a name!')
-            f.exec_()    
+        name=QtGui.QFileDialog.getSaveFileName(MainDialog, '/Users/Standard/Documents/Programme/Widget/Test', 'untitled.xml')
+        e = QtGui.QMessageBox()
+        e.setWindowTitle('Information')
+        e.setText('Do you want to continue ?')
+        e.addButton( QtGui.QMessageBox.Yes)
+        e.addButton( QtGui.QMessageBox.No)
+        e.setDefaultButton(QtGui.QMessageBox.No)
+        response=e.exec_()        
+        if response==QtGui.QMessageBox.Yes:
+            g = QtGui.QMessageBox()
+            g.setWindowTitle('Information')
+            g.setText('The xml file is created!')
+            g.exec_() 
+            B2d_XML.xml(A,title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor, name)
+            self.Next(self.tab_7, self.tab_ID,0)
+            self.tab_2.setEnabled(True)
+            self.tab_3.setEnabled(True)
+            self.tab_4.setEnabled(True)
+            self.tab_5.setEnabled(True)
+            self.tab_6.setEnabled(True)
+            A=A+1
+        elif response==QtGui.QMessageBox.No:
+            B2d_XML.xml(A,title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor,name)
+            h = QtGui.QMessageBox()
+            h.setWindowTitle('Information')
+            h.setText('The xml file has been created!')
+            h.exec_()
+            MainDialog.close()
+
 ###########################################################################################################################################   
     def browse(self):
-        global A, name, title, abstract, data_type, georef, North, South, East, West, Depth1, Depth2, date, T1, T2, Creation_date,  h2, subject_Study, project_Phase, location, variables, format1, quality, process, use_lim, access, citation, owner1, owner2, distributor, resource_contact, result
+        self.reset()
+        global A, name, title, abstract, data_type, georef, North, South, East, West, Depth1, Depth2, date, T1, T2,t2, t1, h1, h2, Creation_date, subject_Study, project_Phase, location, variables, format1, quality, process, use_lim, access, citation, owner1, owner2, distributor, resource_contact, result
         filePath=QtGui.QFileDialog.getOpenFileName(MainDialog, '/Users/Standard/Documents/Programme/Widget/Test', '*.xml')
-        title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1, T2, t1,h1,t2,h2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor=XML_B2d.xml2B2d(str(filePath))
-        self.tab_2.setEnabled(True)
-        self.tab_3.setEnabled(True)
-        self.tab_4.setEnabled(True)
-        self.tab_5.setEnabled(True)
-        self.tab_6.setEnabled(True)
-
+        title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1, T2, T3, t1,h1,t2,h2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor=XML_B2d.xml2B2d(str(filePath))
+        self.tab_2.setEnabled(False)
+        self.tab_3.setEnabled(False)
+        self.tab_4.setEnabled(False)
+        self.tab_5.setEnabled(False)
+        self.tab_6.setEnabled(False)
         self.lineEdit_title.setText(title)
-        self.textEdit_abstract.setText(abstract)
-        
+        self.textEdit_abstract.setText(abstract)       
         self.comboBox_Datatype.setCurrentIndex(self.comboBox_Datatype.findText(data_type, QtCore.Qt.MatchFixedString))
 #        georef=self.comboBox_ref_geo.currentText()
         self.doubleSpinBox_North.setValue(North)
@@ -1165,16 +1159,16 @@ class Ui_MainDialog(object):
         self.doubleSpinBox_West.setValue(West)
         self.doubleSpinBox_depth1.setValue(Depth1)
         self.doubleSpinBox_depth2.setValue(Depth2)
-        self.dateEdit_creation_date.setDate(QtCore.QDate.fromString(Creation_date, 'yyyy-MM-dd'))
-        if T2=='':
+        self.dateEdit_creation_date.setDate(QtCore.QDate.fromString(Creation_date))
+        if T3==0:
             self.radioButton_date.setChecked(True)
-            self.dateEdit_date.setDate(QtCore.QDate.fromString(t1, 'yyyy-MM-dd'))
+            self.dateEdit_date.setDate(QtCore.QDate.fromString(t1, 'dd-MM-yyyy'))
             self.timeEdit_date.setTime(QtCore.QTime.fromString(h1))
         else:
             self.radioButton_temp.setChecked(True)
-            self.dateEdit_tempstart.setDate(QtCore.QDate.fromString(t1, 'yyyy-MM-dd'))
+            self.dateEdit_tempstart.setDate(QtCore.QDate.fromString(t1, 'dd-MM-yyyy'))
             self.timeEdit_start.setTime(QtCore.QTime.fromString(h1))
-            self.dateEdit_tempend.setDate(QtCore.QDate.fromString(t2, 'yyyy-MM-dd'))
+            self.dateEdit_tempend.setDate(QtCore.QDate.fromString(t2, 'dd-MM-yyyy'))
             self.timeEdit_end.setTime(QtCore.QTime.fromString(h2))
             
         self.arrow2(self.listWidget_subjectStudy1,self.listWidget_subjectStudy2, subject_Study)
@@ -1215,7 +1209,55 @@ class Ui_MainDialog(object):
             W2.addItem(item1)
             item2=W1.findItems(variable[i],  QtCore.Qt.MatchFixedString)
             W1.takeItem(W1.row(item2[0]))
-
+    
+    def reset(self):
+        self.lineEdit_title.clear()
+        self.textEdit_abstract.clear()
+        self.lineEdit_quality.clear()
+        self.textEdit_process.clear()
+        self.lineEdit_useLimitation.clear()
+        self.textEdit_Citation.clear()
+        self.listWidget_subjectStudy1.clear()
+        self.listWidget_projectPhase1.clear()
+        self.listWidget_Location1.clear()
+        self.listWidget_variable1.clear()
+        self.listWidget_Format1.clear()
+        self.listWidget_subjectStudy2.clear()
+        self.listWidget_projectPhase2.clear()
+        self.listWidget_Location2.clear()
+        self.listWidget_variable2.clear()
+        self.listWidget_Format2.clear()
+        for i in range(0, len(variablechoice)-1) :
+            item = QtGui.QListWidgetItem()
+            self.listWidget_variable1.addItem(item)         
+        for i in range(0, len(subjectchoice)-1) :
+            item = QtGui.QListWidgetItem()
+            self.listWidget_subjectStudy1.addItem(item)
+        for i in range(0, len(projectchoice)-1) :
+            item = QtGui.QListWidgetItem()
+            self.listWidget_projectPhase1.addItem(item)
+        for i in range(0, len(locationchoice)-1) :
+            item = QtGui.QListWidgetItem()
+            self.listWidget_Location1.addItem(item)
+        for i in range(0, len(formatchoice)-1) :
+            item = QtGui.QListWidgetItem()
+            self.listWidget_Format1.addItem(item)          
+        for i in range(0, len(variablechoice)-1):
+            item = self.listWidget_variable1.item(i)
+            item.setText(_translate("MainDialog", variablechoice[i], None)) 
+        for i in range(0, len(subjectchoice)-1):
+            item = self.listWidget_subjectStudy1.item(i)
+            item.setText(_translate("MainDialog", subjectchoice[i], None))                    
+        for i in range(0, len(projectchoice)-1):
+            item = self.listWidget_projectPhase1.item(i)
+            item.setText(_translate("MainDialog", projectchoice[i], None)) 
+        for i in range(0, len(locationchoice)-1):
+            item = self.listWidget_Location1.item(i)
+            item.setText(_translate("MainDialog", locationchoice[i], None)) 
+        for i in range(0, len(formatchoice)-1):
+            item = self.listWidget_Format1.item(i)
+            item.setText(_translate("MainDialog", formatchoice[i], None))   
+        
 
   ##############################################################################################################♣          
             

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#Ilport of QT module
+#Import of QT module
 
 import B2d_XML
 import XML_B2d
@@ -70,7 +70,9 @@ class Ui_MainDialog(object):
         self.pushButton_quit.setObjectName(_fromUtf8("pushButton_quit"))
         self.gridLayout.addWidget(self.pushButton_quit, 1, 1, 1, 1)
         self.tabWidget = QtGui.QTabWidget(MainDialog)
-        self.tabWidget.tabBar().disable()
+        #### TAB OR NOT TAB ????   ####
+        self.tabWidget.tabBar().setEnabled(False)
+        ##############################
         self.tabWidget.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.tabWidget.setTabShape(QtGui.QTabWidget.Rounded)
         self.tabWidget.setObjectName(_fromUtf8("tabWidget"))
@@ -186,43 +188,73 @@ class Ui_MainDialog(object):
         self.groupBox_geo.setObjectName(_fromUtf8("groupBox_geo"))
         self.gridLayout_5 = QtGui.QGridLayout(self.groupBox_geo)
         self.gridLayout_5.setObjectName(_fromUtf8("gridLayout_5"))
+        self.radioButton_geopoint = QtGui.QRadioButton(self.groupBox_geo)
+        self.radioButton_geopoint.setObjectName(_fromUtf8("radioButton_geopoint"))
+        self.gridLayout_5.addWidget(self.radioButton_geopoint, 1, 0, 1, 1)
+        self.doubleSpinBox_lat = QtGui.QDoubleSpinBox(self.groupBox_geo)
+        self.doubleSpinBox_lat.setMinimum(-90.0)
+        self.doubleSpinBox_lat.setMaximum(90.0)
+        self.doubleSpinBox_lat.setProperty("value", 48.94)
+        self.doubleSpinBox_lat.setObjectName(_fromUtf8("doubleSpinBox_lat"))
+        self.gridLayout_5.addWidget(self.doubleSpinBox_lat, 1, 2, 1, 1)
+        self.doubleSpinBox_long = QtGui.QDoubleSpinBox(self.groupBox_geo)
+        self.doubleSpinBox_long.setMinimum(-180.0)
+        self.doubleSpinBox_long.setMaximum(180.0)
+        self.doubleSpinBox_long.setProperty("value", 7.86)
+        self.doubleSpinBox_long.setObjectName(_fromUtf8("doubleSpinBox_long"))
+        self.gridLayout_5.addWidget(self.doubleSpinBox_long, 1, 6, 1, 1)
+        self.lat = QtGui.QLabel(self.groupBox_geo)
+        self.lat.setObjectName(_fromUtf8("lat"))
+        self.gridLayout_5.addWidget(self.lat, 1, 5, 1, 1)
+        self.long = QtGui.QLabel(self.groupBox_geo)
+        self.long.setObjectName(_fromUtf8("long"))
+        self.gridLayout_5.addWidget(self.long, 1, 1, 1, 1)
+        self.degreeEast0 = QtGui.QLabel(self.groupBox_geo)
+        self.degreeEast0.setObjectName(_fromUtf8("degreeEast0"))
+        self.gridLayout_5.addWidget(self.degreeEast0, 1, 7, 1, 1)
+        self.degreeNorth0 = QtGui.QLabel(self.groupBox_geo)
+        self.degreeNorth0.setObjectName(_fromUtf8("degreeNorth0"))
+        self.gridLayout_5.addWidget(self.degreeNorth0, 1, 3, 1, 1)
+        self.radioButton_geobox = QtGui.QRadioButton(self.groupBox_geo)
+        self.radioButton_geobox.setObjectName(_fromUtf8("radioButton_geobox"))
+        self.gridLayout_5.addWidget(self.radioButton_geobox, 2, 0, 1, 1)
         self.doubleSpinBox_depth1 = QtGui.QDoubleSpinBox(self.groupBox_geo)
         self.doubleSpinBox_depth1.setMaximum(500)
         self.doubleSpinBox_depth1.setMinimum(-6000)
         self.doubleSpinBox_depth1.setObjectName(_fromUtf8("doubleSpinBox_depth1"))
-        self.gridLayout_5.addWidget(self.doubleSpinBox_depth1, 4, 1, 1, 1)
+        self.gridLayout_5.addWidget(self.doubleSpinBox_depth1, 5, 2, 1, 1)
         self.Depth2 = QtGui.QLabel(self.groupBox_geo)
         self.Depth2.setObjectName(_fromUtf8("Depth2"))
-        self.gridLayout_5.addWidget(self.Depth2, 4, 4, 1, 1)
+        self.gridLayout_5.addWidget(self.Depth2, 5, 5, 1, 1)
         self.doubleSpinBox_depth2 = QtGui.QDoubleSpinBox(self.groupBox_geo)
         self.doubleSpinBox_depth2.setMaximum(0.0)
         self.doubleSpinBox_depth2.setMinimum(-6000)
         self.doubleSpinBox_depth2.setProperty("value", 0.0)
         self.doubleSpinBox_depth2.setObjectName(_fromUtf8("doubleSpinBox_depth2"))
-        self.gridLayout_5.addWidget(self.doubleSpinBox_depth2, 4, 5, 1, 1)
+        self.gridLayout_5.addWidget(self.doubleSpinBox_depth2, 5, 6, 1, 1)
         self.Depth1 = QtGui.QLabel(self.groupBox_geo)
         self.Depth1.setObjectName(_fromUtf8("Depth1"))
-        self.gridLayout_5.addWidget(self.Depth1, 4, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.Depth1, 5, 0, 1, 1)
         self.doubleSpinBox_North = QtGui.QDoubleSpinBox(self.groupBox_geo)
         self.doubleSpinBox_North.setMinimum(-90.0)
         self.doubleSpinBox_North.setMaximum(90.0)
         self.doubleSpinBox_North.setProperty("value", 48.94)
         self.doubleSpinBox_North.setObjectName(_fromUtf8("doubleSpinBox_North"))
-        self.gridLayout_5.addWidget(self.doubleSpinBox_North, 1, 1, 1, 1)
+        self.gridLayout_5.addWidget(self.doubleSpinBox_North, 2, 2, 1, 1)
         self.doubleSpinBox_South1 = QtGui.QDoubleSpinBox(self.groupBox_geo)
         self.doubleSpinBox_South1.setMinimum(-90.0)
         self.doubleSpinBox_South1.setMaximum(90.0)
         self.doubleSpinBox_South1.setProperty("value", 48.93)
         self.doubleSpinBox_South1.setObjectName(_fromUtf8("doubleSpinBox_South1"))
-        self.gridLayout_5.addWidget(self.doubleSpinBox_South1, 1, 5, 1, 1)
+        self.gridLayout_5.addWidget(self.doubleSpinBox_South1, 2, 6, 1, 1)
         spacerItem6 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_5.addItem(spacerItem6, 1, 7, 1, 1)
+        self.gridLayout_5.addItem(spacerItem6, 2, 8, 1, 1)
         self.doubleSpinBox_West = QtGui.QDoubleSpinBox(self.groupBox_geo)
         self.doubleSpinBox_West.setMinimum(-180.0)
         self.doubleSpinBox_West.setMaximum(180.0)
         self.doubleSpinBox_West.setProperty("value", 7.86)
         self.doubleSpinBox_West.setObjectName(_fromUtf8("doubleSpinBox_West"))
-        self.gridLayout_5.addWidget(self.doubleSpinBox_West, 2, 1, 1, 1)
+        self.gridLayout_5.addWidget(self.doubleSpinBox_West, 3, 2, 1, 1)
         self.comboBox_ref_geo = QtGui.QComboBox(self.groupBox_geo)
         self.comboBox_ref_geo.setObjectName(_fromUtf8("comboBox_ref_geo"))
         self.comboBox_ref_geo.addItem(_fromUtf8(""))
@@ -233,36 +265,36 @@ class Ui_MainDialog(object):
         self.doubleSpinBox_East.setMaximum(180.0)
         self.doubleSpinBox_East.setProperty("value", 7.87)
         self.doubleSpinBox_East.setObjectName(_fromUtf8("doubleSpinBox_East"))
-        self.gridLayout_5.addWidget(self.doubleSpinBox_East, 2, 5, 1, 1)
+        self.gridLayout_5.addWidget(self.doubleSpinBox_East, 3, 6, 1, 1)
         self.North = QtGui.QLabel(self.groupBox_geo)
         self.North.setObjectName(_fromUtf8("North"))
-        self.gridLayout_5.addWidget(self.North, 1, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.North, 2, 1, 1, 1)
         self.Coordinate_system = QtGui.QLabel(self.groupBox_geo)
         self.Coordinate_system.setObjectName(_fromUtf8("Coordinate_system"))
         self.gridLayout_5.addWidget(self.Coordinate_system, 0, 0, 1, 1)
         spacerItem7 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_5.addItem(spacerItem7, 1, 3, 1, 1)
+        self.gridLayout_5.addItem(spacerItem7, 2, 4, 1, 1)
         self.degreeEast1 = QtGui.QLabel(self.groupBox_geo)
         self.degreeEast1.setObjectName(_fromUtf8("degreeEast1"))
-        self.gridLayout_5.addWidget(self.degreeEast1, 2, 2, 1, 1)
+        self.gridLayout_5.addWidget(self.degreeEast1, 3, 3, 1, 1)
         self.South = QtGui.QLabel(self.groupBox_geo)
         self.South.setObjectName(_fromUtf8("South"))
-        self.gridLayout_5.addWidget(self.South, 1, 4, 1, 1)
+        self.gridLayout_5.addWidget(self.South, 2, 5, 1, 1)
         self.degreeNord2 = QtGui.QLabel(self.groupBox_geo)
         self.degreeNord2.setObjectName(_fromUtf8("degreeNord2"))
-        self.gridLayout_5.addWidget(self.degreeNord2, 1, 6, 1, 1)
+        self.gridLayout_5.addWidget(self.degreeNord2, 2, 7, 1, 1)
         self.degreeast2 = QtGui.QLabel(self.groupBox_geo)
         self.degreeast2.setObjectName(_fromUtf8("degreeast2"))
-        self.gridLayout_5.addWidget(self.degreeast2, 2, 6, 1, 1)
+        self.gridLayout_5.addWidget(self.degreeast2, 3, 7, 1, 1)
         self.degreeN1 = QtGui.QLabel(self.groupBox_geo)
         self.degreeN1.setObjectName(_fromUtf8("degreeN1"))
-        self.gridLayout_5.addWidget(self.degreeN1, 1, 2, 1, 1)
+        self.gridLayout_5.addWidget(self.degreeN1, 2, 3, 1, 1)
         self.East = QtGui.QLabel(self.groupBox_geo)
         self.East.setObjectName(_fromUtf8("East"))
-        self.gridLayout_5.addWidget(self.East, 2, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.East, 3, 1, 1, 1)
         self.West = QtGui.QLabel(self.groupBox_geo)
         self.West.setObjectName(_fromUtf8("West"))
-        self.gridLayout_5.addWidget(self.West, 2, 4, 1, 1)
+        self.gridLayout_5.addWidget(self.West, 3, 5, 1, 1)
         self.gridLayout_4.addWidget(self.groupBox_geo, 1, 0, 1, 3)
         spacerItem8 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.gridLayout_4.addItem(spacerItem8, 2, 0, 1, 1)
@@ -271,6 +303,10 @@ class Ui_MainDialog(object):
         self.gridLayout_4.addWidget(self.pushButton_next2, 10, 2, 1, 1)
         spacerItem9 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.gridLayout_4.addItem(spacerItem9, 10, 1, 1, 1)
+        self.star = QtGui.QLabel(self.tab_2)
+        self.star.setFont(font)
+        self.star.setObjectName(_fromUtf8("star"))
+        self.gridLayout_4.addWidget(self.star, 10, 1, 1, 1)
         self.pushButton_previous2 = QtGui.QPushButton(self.tab_2)
         self.pushButton_previous2.setObjectName(_fromUtf8("pushButton_previous2"))
         self.gridLayout_4.addWidget(self.pushButton_previous2, 10, 0, 1, 1)
@@ -364,25 +400,15 @@ class Ui_MainDialog(object):
         self.gridLayout_7.addWidget(self.pushButton_variablein, 11, 2, 1, 1)
         self.listWidget_variable1 = QtGui.QListWidget(self.tab_3)
         self.listWidget_variable1.setObjectName(_fromUtf8("listWidget_variable1"))
-        ##
-
-        for i in range(0, len(variablechoice)-1) :
-            item = QtGui.QListWidgetItem()
-            self.listWidget_variable1.addItem(item)         
+        ##     
         self.gridLayout_7.addWidget(self.listWidget_variable1, 11, 1, 2, 1)
         self.listWidget_subjectStudy1 = QtGui.QListWidget(self.tab_3)
         self.listWidget_subjectStudy1.setObjectName(_fromUtf8("listWidget_subjectStudy1"))
         ##
-        for i in range(0, len(subjectchoice)-1) :
-            item = QtGui.QListWidgetItem()
-            self.listWidget_subjectStudy1.addItem(item)
         self.gridLayout_7.addWidget(self.listWidget_subjectStudy1, 1, 1, 2, 1)
         self.listWidget_projectPhase1 = QtGui.QListWidget(self.tab_3)
         self.listWidget_projectPhase1.setObjectName(_fromUtf8("listWidget_projectPhase1"))
         ##
-        for i in range(0, len(projectchoice)-1) :
-            item = QtGui.QListWidgetItem()
-            self.listWidget_projectPhase1.addItem(item)
         self.gridLayout_7.addWidget(self.listWidget_projectPhase1, 4, 1, 2, 1)
         self.pushButton_locationout = QtGui.QPushButton(self.tab_3)
         self.pushButton_locationout.setObjectName(_fromUtf8("pushButton_locationout"))
@@ -393,9 +419,6 @@ class Ui_MainDialog(object):
         self.listWidget_Location1 = QtGui.QListWidget(self.tab_3)
         self.listWidget_Location1.setObjectName(_fromUtf8("listWidget_Location1"))
         ##
-        for i in range(0, len(locationchoice)-1) :
-            item = QtGui.QListWidgetItem()
-            self.listWidget_Location1.addItem(item)
         self.gridLayout_7.addWidget(self.listWidget_Location1, 8, 1, 2, 1)
         spacerItem17 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.gridLayout_7.addItem(spacerItem17, 13, 1, 1, 1)
@@ -429,9 +452,6 @@ class Ui_MainDialog(object):
         self.listWidget_Format1 = QtGui.QListWidget(self.tab_4)
         self.listWidget_Format1.setObjectName(_fromUtf8("listWidget_Format1"))
         ##
-        for i in range(0, len(formatchoice)-1) :
-            item = QtGui.QListWidgetItem()
-            self.listWidget_Format1.addItem(item)
         self.gridLayout_8.addWidget(self.listWidget_Format1, 1, 2, 2, 1)
         self.pushButton_Formatin = QtGui.QPushButton(self.tab_4)
         self.pushButton_Formatin.setObjectName(_fromUtf8("pushButton_Formatin"))
@@ -465,7 +485,7 @@ class Ui_MainDialog(object):
         self.gridLayout_9.setObjectName(_fromUtf8("gridLayout_9"))
         self.lineEdit_useLimitation = QtGui.QLineEdit(self.tab_5)
         self.lineEdit_useLimitation.setObjectName(_fromUtf8("lineEdit_useLimitation"))
-        self.gridLayout_9.addWidget(self.lineEdit_useLimitation, 1, 2, 1, 1)
+        self.gridLayout_9.addWidget(self.lineEdit_useLimitation, 4, 2, 1, 1)
         self.textEdit_Citation = QtGui.QTextEdit(self.tab_5)
         self.textEdit_Citation.setObjectName(_fromUtf8("textEdit_Citation"))
         self.gridLayout_9.addWidget(self.textEdit_Citation, 6, 2, 1, 1)
@@ -478,7 +498,7 @@ class Ui_MainDialog(object):
         self.gridLayout_9.addItem(spacerItem22, 0, 0, 1, 1)
         self.Acces = QtGui.QLabel(self.tab_5)
         self.Acces.setObjectName(_fromUtf8("Acces"))
-        self.gridLayout_9.addWidget(self.Acces, 4, 0, 1, 1)
+        self.gridLayout_9.addWidget(self.Acces, 1, 0, 1, 1)
         self.Citation = QtGui.QLabel(self.tab_5)
         self.Citation.setObjectName(_fromUtf8("Citation"))
         self.gridLayout_9.addWidget(self.Citation, 6, 0, 1, 1)
@@ -487,13 +507,13 @@ class Ui_MainDialog(object):
         self.gridLayout_9.addWidget(self.pushButton_previous5, 8, 0, 1, 1)
         self.Use_limitation = QtGui.QLabel(self.tab_5)
         self.Use_limitation.setObjectName(_fromUtf8("Use_limitation"))
-        self.gridLayout_9.addWidget(self.Use_limitation, 1, 0, 1, 1)
+        self.gridLayout_9.addWidget(self.Use_limitation, 4, 0, 1, 1)
         self.comboBox_access = QtGui.QComboBox(self.tab_5)
         self.comboBox_access.setObjectName(_fromUtf8("comboBox_access"))
         self.comboBox_access.addItem(_fromUtf8(""))
         self.comboBox_access.addItem(_fromUtf8(""))
         self.comboBox_access.addItem(_fromUtf8(""))
-        self.gridLayout_9.addWidget(self.comboBox_access, 4, 2, 1, 1)
+        self.gridLayout_9.addWidget(self.comboBox_access, 1, 2, 1, 1)
         spacerItem23 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.gridLayout_9.addItem(spacerItem23, 5, 0, 1, 1)
         spacerItem24 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
@@ -581,7 +601,6 @@ class Ui_MainDialog(object):
         self.tableWidget_validation.setObjectName(_fromUtf8("tableWidget_validation"))
         self.tableWidget_validation.setColumnCount(8)
         self.tableWidget_validation.setRowCount(0)
-        
         item = QtGui.QTableWidgetItem()
         self.tableWidget_validation.setHorizontalHeaderItem(0, item)
         item = QtGui.QTableWidgetItem()
@@ -599,7 +618,7 @@ class Ui_MainDialog(object):
         item = QtGui.QTableWidgetItem()
         self.tableWidget_validation.setHorizontalHeaderItem(7, item)
         self.tableWidget_validation.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
-        self.gridLayout_2.addWidget(self.tableWidget_validation, 0, 0, 1, 3)
+        self.gridLayout_2.addWidget(self.tableWidget_validation, 0, 0, 1, 4)
         self.pushButton_previous7 = QtGui.QPushButton(self.tab_7)
         self.pushButton_previous7.setObjectName(_fromUtf8("pushButton_previous7"))
         self.gridLayout_2.addWidget(self.pushButton_previous7, 3, 0, 1, 1)
@@ -755,14 +774,21 @@ class Ui_MainDialog(object):
         self.comboBox_ref_geo.setItemText(0, _translate("MainDialog", "WGS84", None))
         self.comboBox_ref_geo.setItemText(1, _translate("MainDialog", "Lambert 93", None))
         self.North.setText(_translate("MainDialog", "North *", None))
+        self.radioButton_geopoint.setText(_translate("MainDialog", "Point **", None))
+        self.radioButton_geobox.setText(_translate("MainDialog", "Bounding box **", None))
+        self.lat.setText(_translate("MainDialog", "Latitude *", None))
+        self.long.setText(_translate("MainDialog", "Longitude *", None))
         self.Coordinate_system.setText(_translate("MainDialog", "Geographic coordinate system", None))
         self.degreeEast1.setText(_translate("MainDialog", "° E", None))
+        self.degreeEast0.setText(_translate("MainDialog", "° E", None))
+        self.degreeNorth0.setText(_translate("MainDialog", "° N", None))
         self.South.setText(_translate("MainDialog", "South *", None))
         self.degreeNord2.setText(_translate("MainDialog", "° N", None))
         self.degreeast2.setText(_translate("MainDialog", "° E", None))
         self.degreeN1.setText(_translate("MainDialog", "° N", None))
         self.East.setText(_translate("MainDialog", "East *", None))
         self.West.setText(_translate("MainDialog", "West *", None))
+        self.star.setText(_translate("MainDialog", "** : Please choose between the propositions (date or temporal extent/ Point or bounding box)", None))
         self.pushButton_next2.setText(_translate("MainDialog", "Next >>", None))
         self.pushButton_previous2.setText(_translate("MainDialog", "<< Previous", None))
         self.Creation_date.setText(_translate("MainDialog", "Creation date", None))
@@ -785,50 +811,29 @@ class Ui_MainDialog(object):
         self.pushButton_variablein.setText(_translate("MainDialog", ">>", None))
         __sortingEnabled = self.listWidget_variable1.isSortingEnabled()
         self.listWidget_variable1.setSortingEnabled(False)
-        for i in range(0, len(variablechoice)-1):
-            item = self.listWidget_variable1.item(i)
-            item.setText(_translate("MainDialog", variablechoice[i], None)) 
 
         self.listWidget_variable1.setSortingEnabled(__sortingEnabled)
         __sortingEnabled = self.listWidget_subjectStudy1.isSortingEnabled()
         self.listWidget_subjectStudy1.setSortingEnabled(False)
         ##
-        for i in range(0, len(subjectchoice)-1):
-            item = self.listWidget_subjectStudy1.item(i)
-            item.setText(_translate("MainDialog", subjectchoice[i], None))                    
-        ##
-
         self.listWidget_subjectStudy1.setSortingEnabled(__sortingEnabled)
         __sortingEnabled = self.listWidget_projectPhase1.isSortingEnabled()
         self.listWidget_projectPhase1.setSortingEnabled(False)
-        ##
-        for i in range(0, len(projectchoice)-1):
-            item = self.listWidget_projectPhase1.item(i)
-            item.setText(_translate("MainDialog", projectchoice[i], None)) 
         ## 
-
         self.listWidget_projectPhase1.setSortingEnabled(__sortingEnabled)
         self.pushButton_locationout.setText(_translate("MainDialog", "<<", None))
         self.Project_phase.setText(_translate("MainDialog", "Project phase *", None))
         __sortingEnabled = self.listWidget_Location1.isSortingEnabled()
         self.listWidget_Location1.setSortingEnabled(False)
         ##
-        for i in range(0, len(locationchoice)-1):
-            item = self.listWidget_Location1.item(i)
-            item.setText(_translate("MainDialog", locationchoice[i], None)) 
-        ##    
         self.listWidget_Location1.setSortingEnabled(__sortingEnabled)
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainDialog", "Keywords", None))
         self.Format.setText(_translate("MainDialog", "Format *", None))
         self.pushButton_next4.setText(_translate("MainDialog", "Next >>", None))
         __sortingEnabled = self.listWidget_Format1.isSortingEnabled()
         self.listWidget_Format1.setSortingEnabled(False)
-        ##
-        for i in range(0, len(formatchoice)-1):
-            item = self.listWidget_Format1.item(i)
-            item.setText(_translate("MainDialog", formatchoice[i], None))
 
-            
+        self.reset() # correspond à la définition des listWidget (remplissage des listes)
         self.listWidget_Format1.setSortingEnabled(__sortingEnabled)
         self.pushButton_Formatin.setText(_translate("MainDialog", ">>", None))
         self.Quality.setText(_translate("MainDialog", "Quality", None))
@@ -915,12 +920,17 @@ class Ui_MainDialog(object):
         "Action du bouton next du tab 2"
         global georef, North, South, East, West, Depth1, Depth2, date, T1, T2, Creation_date,  h2
         georef=self.comboBox_ref_geo.currentText()
-        North=self.doubleSpinBox_North.value()
-        South=self.doubleSpinBox_South1.value()
-        East=self.doubleSpinBox_East.value()
-        West=self.doubleSpinBox_West.value()
         Depth1=self.doubleSpinBox_depth1.value()
         Depth2=self.doubleSpinBox_depth2.value()
+        if self.radioButton_geopoint.isChecked()==1:
+            North, South=self.doubleSpinBox_lat.value()
+            East, West=self.doubleSpinBox_long.value()
+        elif self.radioButton_geobox.isChecked()==1:
+            North=self.doubleSpinBox_North.value()
+            South=self.doubleSpinBox_South1.value()
+            East=self.doubleSpinBox_East.value()
+            West=self.doubleSpinBox_West.value()
+
         creation_date=[str(self.dateEdit_creation_date.date().year()),str(self.dateEdit_creation_date.date().month()), str(self.dateEdit_creation_date.date().day())]
         Creation_date=creation_date[0]+'-'+creation_date[1]+'-'+creation_date[2]
         if self.radioButton_temp.isChecked()==1:
@@ -1108,6 +1118,7 @@ class Ui_MainDialog(object):
         self.tableWidget_validation.removeRow(rowPosition-1)
 
     def validate(self):
+        "Permet d'enregistrer les métadonnées et de les transformer en fichier xml"
         global A, name
         name=QtGui.QFileDialog.getSaveFileName(MainDialog, '/Users/Standard/Documents/Programme/Widget/Test', 'untitled.xml')
         e = QtGui.QMessageBox()
@@ -1140,6 +1151,7 @@ class Ui_MainDialog(object):
 
 ###########################################################################################################################################   
     def browse(self):
+        "Permet de charger les métadonnées xml déjà enregistrées"
         self.reset()
         global A, name, title, abstract, data_type, georef, North, South, East, West, Depth1, Depth2, date, T1, T2,t2, t1, h1, h2, Creation_date, subject_Study, project_Phase, location, variables, format1, quality, process, use_lim, access, citation, owner1, owner2, distributor, resource_contact, result
         filePath=QtGui.QFileDialog.getOpenFileName(MainDialog, '/Users/Standard/Documents/Programme/Widget/Test', '*.xml')
@@ -1153,12 +1165,18 @@ class Ui_MainDialog(object):
         self.textEdit_abstract.setText(abstract)       
         self.comboBox_Datatype.setCurrentIndex(self.comboBox_Datatype.findText(data_type, QtCore.Qt.MatchFixedString))
 #        georef=self.comboBox_ref_geo.currentText()
-        self.doubleSpinBox_North.setValue(North)
-        self.doubleSpinBox_South1.setValue(South)
-        self.doubleSpinBox_East.setValue(East)
-        self.doubleSpinBox_West.setValue(West)
-        self.doubleSpinBox_depth1.setValue(Depth1)
-        self.doubleSpinBox_depth2.setValue(Depth2)
+        if North==South and East==West:
+            self.doubleSpinBox_lat.setValue(North)
+            self.doubleSpinBox_long.setValue(East)
+            self.radioButton_geopoint.setChecked(True)
+        else:
+            self.radioButton_geobox.setChecked(True)
+            self.doubleSpinBox_North.setValue(North)
+            self.doubleSpinBox_South1.setValue(South)
+            self.doubleSpinBox_East.setValue(East)
+            self.doubleSpinBox_West.setValue(West)
+            self.doubleSpinBox_depth1.setValue(Depth1)
+            self.doubleSpinBox_depth2.setValue(Depth2)
         self.dateEdit_creation_date.setDate(QtCore.QDate.fromString(Creation_date))
         if T3==0:
             self.radioButton_date.setChecked(True)
@@ -1202,7 +1220,8 @@ class Ui_MainDialog(object):
             self.tableWidget_validation.setItem(0, i, QtGui.QTableWidgetItem(result[i]))
 
             
-    def arrow2(self, W1, W2, variable):
+    def arrow2(self, W1, W2, variable): 
+        "Permet de faire marcher les bouton >> et <<. fais passer les éléments sélectionner d'une liste à une autre tout en les enleant de la première"
         global item2
         for i in range(0, len(variable)):       
             item1=QtGui.QListWidgetItem(variable[i])
@@ -1211,6 +1230,7 @@ class Ui_MainDialog(object):
             W1.takeItem(W1.row(item2[0]))
     
     def reset(self):
+        "Permet de remettre à 0 les différents champs remplis précédemment "
         self.lineEdit_title.clear()
         self.textEdit_abstract.clear()
         self.lineEdit_quality.clear()
@@ -1256,8 +1276,7 @@ class Ui_MainDialog(object):
             item.setText(_translate("MainDialog", locationchoice[i], None)) 
         for i in range(0, len(formatchoice)-1):
             item = self.listWidget_Format1.item(i)
-            item.setText(_translate("MainDialog", formatchoice[i], None))   
-        
+            item.setText(_translate("MainDialog", formatchoice[i], None))    
 
   ##############################################################################################################♣          
             

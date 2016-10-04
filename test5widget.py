@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #Import of QT module
 
-import B2d_XML
-import XML_B2d
+import B2d_XML2
+import XML_B2d2
 from PyQt4 import QtCore, QtGui
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -71,7 +71,7 @@ class Ui_MainDialog(object):
         self.gridLayout.addWidget(self.pushButton_quit, 1, 1, 1, 1)
         self.tabWidget = QtGui.QTabWidget(MainDialog)
         #### TAB OR NOT TAB ????   ####
-        self.tabWidget.tabBar().setEnabled(False)
+  #      self.tabWidget.tabBar().setEnabled(False)
         ##############################
         self.tabWidget.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.tabWidget.setTabShape(QtGui.QTabWidget.Rounded)
@@ -923,8 +923,10 @@ class Ui_MainDialog(object):
         Depth1=self.doubleSpinBox_depth1.value()
         Depth2=self.doubleSpinBox_depth2.value()
         if self.radioButton_geopoint.isChecked()==1:
-            North, South=self.doubleSpinBox_lat.value()
-            East, West=self.doubleSpinBox_long.value()
+            North=self.doubleSpinBox_lat.value()
+            South=self.doubleSpinBox_lat.value()
+            East=self.doubleSpinBox_long.value()
+            West=self.doubleSpinBox_long.value()
         elif self.radioButton_geobox.isChecked()==1:
             North=self.doubleSpinBox_North.value()
             South=self.doubleSpinBox_South1.value()
@@ -934,10 +936,10 @@ class Ui_MainDialog(object):
         creation_date=[str(self.dateEdit_creation_date.date().year()),str(self.dateEdit_creation_date.date().month()), str(self.dateEdit_creation_date.date().day())]
         Creation_date=creation_date[0]+'-'+creation_date[1]+'-'+creation_date[2]
         if self.radioButton_temp.isChecked()==1:
-            t1=self.dateEdit_tempstart.date().toString('dd-MM-yyyy')
+            t1=self.dateEdit_tempstart.date().toString('yyyy-MM-dd')
             h1=self.timeEdit_start.time().toString('hh:mm:ss')
             T1=t1+'T'+h1
-            t2=self.dateEdit_tempend.date().toString('dd-MM-yyyy')
+            t2=self.dateEdit_tempend.date().toString('yyyy-MM-dd')
             h2=self.timeEdit_end.time().toString('hh:mm:ss')
             T2=t2+'T'+h2
          
@@ -949,17 +951,17 @@ class Ui_MainDialog(object):
             else:
                 T3=1
         elif self.radioButton_date.isChecked()==1:
-            t1=self.dateEdit_tempstart.date().toString('dd-MM-yyyy')
+            t1=self.dateEdit_tempstart.date().toString('yyyy-MM-dd')
             h1=self.timeEdit_start.time().toString('hh:mm:ss')
             T1=t1+'T'+h1
             T2=''
             T3=1
-        if North<=South:
+        if North<South:
             e = QtGui.QMessageBox()
             e.setWindowTitle('Error')
             e.setText('North value should be higher than the South value')
             e.exec_()  
-        elif West>=East:
+        elif West>East:
             f = QtGui.QMessageBox()
             f.setWindowTitle('Error')
             f.setText('East value should be higher than the West value')
@@ -970,7 +972,7 @@ class Ui_MainDialog(object):
                 d.setText('Please choose date or a temporal extent')
                 d.exec_()
         
-        if North>South and West<East and T3==1:
+        if North>=South and West<=East and T3==1:
             self.Next(self.tab_2, self.tab_3,2)
             
     def action_next3(self):
@@ -1133,7 +1135,7 @@ class Ui_MainDialog(object):
             g.setWindowTitle('Information')
             g.setText('The xml file is created!')
             g.exec_() 
-            B2d_XML.xml(A,title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor, name)
+            B2d_XML2.xml(A,title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor, name)
             self.Next(self.tab_7, self.tab_ID,0)
             self.tab_2.setEnabled(True)
             self.tab_3.setEnabled(True)
@@ -1142,7 +1144,7 @@ class Ui_MainDialog(object):
             self.tab_6.setEnabled(True)
             A=A+1
         elif response==QtGui.QMessageBox.No:
-            B2d_XML.xml(A,title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor,name)
+            B2d_XML2.xml(A,title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor,name)
             h = QtGui.QMessageBox()
             h.setWindowTitle('Information')
             h.setText('The xml file has been created!')
@@ -1155,7 +1157,7 @@ class Ui_MainDialog(object):
         self.reset()
         global A, name, title, abstract, data_type, georef, North, South, East, West, Depth1, Depth2, date, T1, T2,t2, t1, h1, h2, Creation_date, subject_Study, project_Phase, location, variables, format1, quality, process, use_lim, access, citation, owner1, owner2, distributor, resource_contact, result
         filePath=QtGui.QFileDialog.getOpenFileName(MainDialog, '/Users/Standard/Documents/Programme/Widget/Test', '*.xml')
-        title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1, T2, T3, t1,h1,t2,h2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor=XML_B2d.xml2B2d(str(filePath))
+        title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1, T2, T3, t1,h1,t2,h2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor=XML_B2d2.xml2B2d(str(filePath))
         self.tab_2.setEnabled(False)
         self.tab_3.setEnabled(False)
         self.tab_4.setEnabled(False)
@@ -1180,13 +1182,13 @@ class Ui_MainDialog(object):
         self.dateEdit_creation_date.setDate(QtCore.QDate.fromString(Creation_date))
         if T3==0:
             self.radioButton_date.setChecked(True)
-            self.dateEdit_date.setDate(QtCore.QDate.fromString(t1, 'dd-MM-yyyy'))
+            self.dateEdit_date.setDate(QtCore.QDate.fromString(t1, 'yyyy-MM-dd'))
             self.timeEdit_date.setTime(QtCore.QTime.fromString(h1))
         else:
             self.radioButton_temp.setChecked(True)
-            self.dateEdit_tempstart.setDate(QtCore.QDate.fromString(t1, 'dd-MM-yyyy'))
+            self.dateEdit_tempstart.setDate(QtCore.QDate.fromString(t1, 'yyyy-MM-dd'))
             self.timeEdit_start.setTime(QtCore.QTime.fromString(h1))
-            self.dateEdit_tempend.setDate(QtCore.QDate.fromString(t2, 'dd-MM-yyyy'))
+            self.dateEdit_tempend.setDate(QtCore.QDate.fromString(t2, 'yyyy-MM-dd'))
             self.timeEdit_end.setTime(QtCore.QTime.fromString(h2))
             
         self.arrow2(self.listWidget_subjectStudy1,self.listWidget_subjectStudy2, subject_Study)

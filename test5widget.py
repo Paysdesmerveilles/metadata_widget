@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 #Import of QT module
-
+import os
+from shutil import copy2
+import ntpath
 import B2d_XML2
 import XML_B2d2
 from PyQt4 import QtCore, QtGui
@@ -596,32 +598,33 @@ class Ui_MainDialog(object):
         self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
         self.pushButton_validate = QtGui.QPushButton(self.tab_7)
         self.pushButton_validate.setObjectName(_fromUtf8("pushButton_validate"))
-        self.gridLayout_2.addWidget(self.pushButton_validate, 3, 3, 1, 1)
+        self.gridLayout_2.addWidget(self.pushButton_validate, 4, 3, 1, 1)
         self.tableWidget_validation = QtGui.QTableWidget(self.tab_7)
         self.tableWidget_validation.setObjectName(_fromUtf8("tableWidget_validation"))
-        self.tableWidget_validation.setColumnCount(8)
+        self.tableWidget_validation.setColumnCount(1)
         self.tableWidget_validation.setRowCount(0)
         item = QtGui.QTableWidgetItem()
         self.tableWidget_validation.setHorizontalHeaderItem(0, item)
-        item = QtGui.QTableWidgetItem()
-        self.tableWidget_validation.setHorizontalHeaderItem(1, item)
-        item = QtGui.QTableWidgetItem()
-        self.tableWidget_validation.setHorizontalHeaderItem(2, item)
-        item = QtGui.QTableWidgetItem()
-        self.tableWidget_validation.setHorizontalHeaderItem(3, item)
-        item = QtGui.QTableWidgetItem()
-        self.tableWidget_validation.setHorizontalHeaderItem(4, item)
-        item = QtGui.QTableWidgetItem()
-        self.tableWidget_validation.setHorizontalHeaderItem(5, item)
-        item = QtGui.QTableWidgetItem()
-        self.tableWidget_validation.setHorizontalHeaderItem(6, item)
-        item = QtGui.QTableWidgetItem()
-        self.tableWidget_validation.setHorizontalHeaderItem(7, item)
+        header = self.tableWidget_validation.horizontalHeader()
+        header.setStretchLastSection(True)
+
+
         self.tableWidget_validation.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
-        self.gridLayout_2.addWidget(self.tableWidget_validation, 0, 0, 1, 4)
+        self.gridLayout_2.addWidget(self.tableWidget_validation, 2, 0, 1, 4)
+        
+        self.upload = QtGui.QLabel(self.tab_7)
+        self.upload.setObjectName(_fromUtf8("upload"))
+        self.gridLayout_2.addWidget(self.upload, 1, 0, 1, 1)
+        self.pushButton_upload = QtGui.QPushButton(self.tab_7)
+        self.pushButton_upload.setObjectName(_fromUtf8("pushButton_upload"))
+        self.gridLayout_2.addWidget(self.pushButton_upload, 1, 1, 1, 1)
+        spacerItem30 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.gridLayout_2.addItem(spacerItem30, 2, 0, 1, 1)
+        spacerItem31 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.gridLayout_2.addItem(spacerItem30, 3, 0, 1, 1)
         self.pushButton_previous7 = QtGui.QPushButton(self.tab_7)
         self.pushButton_previous7.setObjectName(_fromUtf8("pushButton_previous7"))
-        self.gridLayout_2.addWidget(self.pushButton_previous7, 3, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.pushButton_previous7, 4, 0, 1, 1)
         spacerItem26 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.gridLayout_2.addItem(spacerItem26, 1, 0, 1, 1)
         spacerItem27 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
@@ -745,6 +748,7 @@ class Ui_MainDialog(object):
         QtCore.QObject.connect(self.pushButton_validate, QtCore.SIGNAL(_fromUtf8("clicked()")), self.validate)
         QtCore.QObject.connect(self.pushButton_browse, QtCore.SIGNAL(_fromUtf8("clicked()")), self.browse)
         QtCore.QObject.connect(self.pushButton_clear, QtCore.SIGNAL(_fromUtf8("clicked()")), self.reset)
+        QtCore.QObject.connect(self.pushButton_upload, QtCore.SIGNAL(_fromUtf8("clicked()")), self.uploadfile)
         
     def retranslateUi(self, MainDialog):
         MainDialog.setWindowTitle(_translate("MainDialog", "Metadata implementation for GeoNetwork", None))
@@ -843,14 +847,14 @@ class Ui_MainDialog(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), _translate("MainDialog", "Quality", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), _translate("MainDialog", "Processing", None))
         self.pushButton_next5.setText(_translate("MainDialog", "Next >>", None))
-        self.Acces.setText(_translate("MainDialog", "Access contraints *", None))
+        self.Acces.setText(_translate("MainDialog", "Access constraints *", None))
         self.Citation.setText(_translate("MainDialog", "Citation", None))
         self.pushButton_previous5.setText(_translate("MainDialog", "<< Previous", None))
         self.Use_limitation.setText(_translate("MainDialog", "Use limitation", None))
         self.comboBox_access.setItemText(0, _translate("MainDialog", "Restricted", None))
         self.comboBox_access.setItemText(1, _translate("MainDialog", "Embargo", None))
         self.comboBox_access.setItemText(2, _translate("MainDialog", "Public", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), _translate("MainDialog", "Contraints", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), _translate("MainDialog", "Constraints", None))
         self.groupBox_resourceContact.setTitle(_translate("MainDialog", "Resource contact", None))
         self.ResourceOrganisation.setText(_translate("MainDialog", "Organisation", None))
         self.comboBox_resourcOrganisation.setItemText(0, _translate("MainDialog", "EOST/ IPGS", None))
@@ -877,23 +881,11 @@ class Ui_MainDialog(object):
         self.comboBox_ownerOrganisation2.setItemText(2, _translate("MainDialog", "BRGM", None))
         self.comboBox_ownerOrganisation2.setItemText(3, _translate("MainDialog", "Es Géothermie", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_6), _translate("MainDialog", "Contacts", None))
+        self.upload.setText(_translate("MainDialog", "Upload data file", None))
+        self.pushButton_upload.setText(_translate("MainDialog", " ... ", None))
         self.pushButton_validate.setText(_translate("MainDialog", "Validate", None))
         item = self.tableWidget_validation.horizontalHeaderItem(0)
-        item.setText(_translate("MainDialog", "Title", None))
-        item = self.tableWidget_validation.horizontalHeaderItem(1)
-        item.setText(_translate("MainDialog", "Abstract", None))
-        item = self.tableWidget_validation.horizontalHeaderItem(2)
-        item.setText(_translate("MainDialog", "Start time", None))
-        item = self.tableWidget_validation.horizontalHeaderItem(3)
-        item.setText(_translate("MainDialog", "End Time", None))
-        item = self.tableWidget_validation.horizontalHeaderItem(4)
-        item.setText(_translate("MainDialog", "North", None))
-        item = self.tableWidget_validation.horizontalHeaderItem(5)
-        item.setText(_translate("MainDialog", "West", None))
-        item = self.tableWidget_validation.horizontalHeaderItem(6)
-        item.setText(_translate("MainDialog", "South", None))
-        item = self.tableWidget_validation.horizontalHeaderItem(7)
-        item.setText(_translate("MainDialog", "East", None))
+        item.setText(_translate("MainDialog", "List of the data", None))
         self.pushButton_previous7.setText(_translate("MainDialog", "<< Previous", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_7), _translate("MainDialog", "Validation", None))
         
@@ -1015,7 +1007,7 @@ class Ui_MainDialog(object):
             d.exec_()
         
     def action_next5(self):
-        "Action du bouton next du tab 5 contraints"
+        "Action du bouton next du tab 5 constraints"
         global use_lim, access, citation
         use_lim=self.lineEdit_useLimitation.text()
         access=self.comboBox_access.currentText()
@@ -1039,11 +1031,6 @@ class Ui_MainDialog(object):
         elif self.checkBox_owner1.isChecked()==0 and self.checkBox_2.isChecked()==0:
             owner1=0
             owner2=0
-        self.tableWidget_validation.removeRow(0)
-        rowPosition=self.tableWidget_validation.rowCount()
-        self.tableWidget_validation.insertRow(0)#rowPosition)
-        for i in range(0, self.tableWidget_validation.columnCount()):
-            self.tableWidget_validation.setItem(rowPosition, i, QtGui.QTableWidgetItem(result[i]))
            
         
     def Next(self, tab1, tab2, tabnumber_tab1):
@@ -1116,25 +1103,40 @@ class Ui_MainDialog(object):
 
     def action_previous7(self):
         self.Previous(self.tab_6, self.tab_7,5)
-        rowPosition=self.tableWidget_validation.rowCount()
-        self.tableWidget_validation.removeRow(rowPosition-1)
+#        rowPosition=self.tableWidget_validation.rowCount()
+#        self.tableWidget_validation.removeRow(rowPosition-1)
+    def uploadfile(self):
+        "Charge le dossier qui regroupe les données"
+        global upload_file, Filenames
+        Filenames=[]
+        upload_file=QtGui.QFileDialog.getOpenFileNames(MainDialog, '/Users/Standard/Documents/Programme/Widget')
+        for i in range(0, len(upload_file)):
+            rowPosition=self.tableWidget_validation.rowCount()
+            self.tableWidget_validation.insertRow(rowPosition)
+            self.tableWidget_validation.setItem(rowPosition,0,QtGui.QTableWidgetItem(upload_file[i]))
+            Filenames.append(upload_file[i])
 
+        
     def validate(self):
         "Permet d'enregistrer les métadonnées et de les transformer en fichier xml"
-        global A, name
+        global A, name, dataname
+        dataname=[]
         name=QtGui.QFileDialog.getSaveFileName(MainDialog, '/Users/Standard/Documents/Programme/Widget/Test', 'untitled.xml')
+        Filenames.append(name)
         e = QtGui.QMessageBox()
         e.setWindowTitle('Information')
         e.setText('Do you want to continue ?')
         e.addButton( QtGui.QMessageBox.Yes)
         e.addButton( QtGui.QMessageBox.No)
         e.setDefaultButton(QtGui.QMessageBox.No)
-        response=e.exec_()        
+        response=e.exec_()
+        for i in range(0, len(Filenames)):
+            dataname.append(ntpath.basename(Filenames[i]))
         if response==QtGui.QMessageBox.Yes:
             g = QtGui.QMessageBox()
             g.setWindowTitle('Information')
             g.setText('The xml file is created!')
-            g.exec_() 
+            g.exec_()
             B2d_XML2.xml(A,title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor, name)
             self.Next(self.tab_7, self.tab_ID,0)
             self.tab_2.setEnabled(True)
@@ -1143,12 +1145,18 @@ class Ui_MainDialog(object):
             self.tab_5.setEnabled(True)
             self.tab_6.setEnabled(True)
             A=A+1
+            os.makedirs('/Users/Standard/Documents/Temporaire/%s' %title)
+            for i in range(0, len(Filenames)):
+                copy2(Filenames[i],'/Users/Standard/Documents/Temporaire/%s/%s' %(title,dataname[i]))
         elif response==QtGui.QMessageBox.No:
             B2d_XML2.xml(A,title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor,name)
             h = QtGui.QMessageBox()
             h.setWindowTitle('Information')
             h.setText('The xml file has been created!')
             h.exec_()
+            os.makedirs('/Users/Standard/Documents/Temporaire/%s' %title)
+            for i in range(0, len(Filenames)):
+                copy2(Filenames[i],'/Users/Standard/Documents/Temporaire/%s/%s' %(title,dataname[i]))
             MainDialog.close()
 
 ###########################################################################################################################################   
@@ -1217,9 +1225,7 @@ class Ui_MainDialog(object):
             self.checkBox_2.setChecked(True)
             self.comboBox_ownerOrganisation1.setCurrentIndex(self.comboBox_ownerOrganisation1.findText(owner1, QtCore.Qt.MatchFixedString))
             self.comboBox_ownerOrganisation2.setCurrentIndex(self.comboBox_ownerOrganisation2.findText(owner2, QtCore.Qt.MatchFixedString))
-        self.tableWidget_validation.insertRow(0)
-        for i in range(0, self.tableWidget_validation.columnCount()):
-            self.tableWidget_validation.setItem(0, i, QtGui.QTableWidgetItem(result[i]))
+
 
             
     def arrow2(self, W1, W2, variable): 

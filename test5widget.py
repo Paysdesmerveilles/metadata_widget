@@ -56,7 +56,8 @@ for i in range(0,int(file_format.readline())+1):
     formatchoice.append(file_format.readline().rstrip('\n'))
 file_format.close()
 A=0
-
+data_list=0
+Filenames=[]
 use_lim='' #Comme ces valeurs ne sont pas obligatoires, on est obligés de les initialiser car elles sont utilisés dans la fonction B2d_XML
 process=''
 citation=''
@@ -321,6 +322,12 @@ class Ui_MainDialog(object):
         self.dateEdit_creation_date.setDate(QtCore.QDate.currentDate())
         self.dateEdit_creation_date.setObjectName(_fromUtf8("dateEdit_creation_date"))
         self.gridLayout_4.addWidget(self.dateEdit_creation_date, 8, 1, 1, 1)
+        #########################################################
+        self.timeEdit_creation_time = QtGui.QTimeEdit(self.tab_2)
+        self.timeEdit_creation_time.setTime(QtCore.QTime.currentTime())
+        self.timeEdit_creation_time.setObjectName(_fromUtf8("TimeEdit_creation_date"))
+        self.gridLayout_4.addWidget(self.timeEdit_creation_time, 8, 2, 1, 1)
+        
         spacerItem11 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.gridLayout_4.addItem(spacerItem11, 9, 0, 1, 1)
         spacerItem12 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
@@ -607,7 +614,9 @@ class Ui_MainDialog(object):
         self.tableWidget_validation.setHorizontalHeaderItem(0, item)
         header = self.tableWidget_validation.horizontalHeader()
         header.setStretchLastSection(True)
-
+        self.pushButton_cleardata = QtGui.QPushButton(self.tab_7)
+        self.pushButton_cleardata.setObjectName(_fromUtf8("pushButton_cleardata"))
+        self.gridLayout_2.addWidget(self.pushButton_cleardata, 3, 3, 1, 1)
 
         self.tableWidget_validation.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
         self.gridLayout_2.addWidget(self.tableWidget_validation, 2, 0, 1, 4)
@@ -749,6 +758,7 @@ class Ui_MainDialog(object):
         QtCore.QObject.connect(self.pushButton_browse, QtCore.SIGNAL(_fromUtf8("clicked()")), self.browse)
         QtCore.QObject.connect(self.pushButton_clear, QtCore.SIGNAL(_fromUtf8("clicked()")), self.reset)
         QtCore.QObject.connect(self.pushButton_upload, QtCore.SIGNAL(_fromUtf8("clicked()")), self.uploadfile)
+        QtCore.QObject.connect(self.pushButton_cleardata, QtCore.SIGNAL(_fromUtf8("clicked()")), self.cleardatalist)
         
     def retranslateUi(self, MainDialog):
         MainDialog.setWindowTitle(_translate("MainDialog", "Metadata implementation for GeoNetwork", None))
@@ -772,7 +782,7 @@ class Ui_MainDialog(object):
         self.Tempstart.setText(_translate("MainDialog", "Start", None))
         self.radioButton_date.setText(_translate("MainDialog", "Date **", None))
         self.radioButton_temp.setText(_translate("MainDialog", "Temporal extent **", None))
-        self.groupBox_geo.setTitle(_translate("MainDialog", "Geographical extent", None))
+        self.groupBox_geo.setTitle(_translate("MainDialog", "Geographical extent", None)) 
         self.Depth2.setText(_translate("MainDialog", "To", None))
         self.Depth1.setText(_translate("MainDialog", "Depth extent : From", None))
         self.comboBox_ref_geo.setItemText(0, _translate("MainDialog", "WGS84", None))
@@ -882,11 +892,12 @@ class Ui_MainDialog(object):
         self.comboBox_ownerOrganisation2.setItemText(3, _translate("MainDialog", "Es Géothermie", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_6), _translate("MainDialog", "Contacts", None))
         self.upload.setText(_translate("MainDialog", "Upload data file", None))
-        self.pushButton_upload.setText(_translate("MainDialog", " ... ", None))
+        self.pushButton_upload.setText(_translate("MainDialog", " Add data to the list! ", None))
         self.pushButton_validate.setText(_translate("MainDialog", "Validate", None))
         item = self.tableWidget_validation.horizontalHeaderItem(0)
-        item.setText(_translate("MainDialog", "List of the data", None))
+        item.setText(_translate("MainDialog", "List of data", None))
         self.pushButton_previous7.setText(_translate("MainDialog", "<< Previous", None))
+        self.pushButton_cleardata.setText(_translate("MainDialog", "Clear data", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_7), _translate("MainDialog", "Validation", None))
         
     def action_next1(self):
@@ -910,7 +921,7 @@ class Ui_MainDialog(object):
         
     def action_next2(self):
         "Action du bouton next du tab 2"
-        global georef, North, South, East, West, Depth1, Depth2, date, T1, T2, Creation_date,  h2
+        global georef, North, South, East, West, Depth1, Depth2, date, T1, T2, Creation_date,  h2,Date_save
         georef=self.comboBox_ref_geo.currentText()
         Depth1=self.doubleSpinBox_depth1.value()
         Depth2=self.doubleSpinBox_depth2.value()
@@ -926,7 +937,9 @@ class Ui_MainDialog(object):
             West=self.doubleSpinBox_West.value()
 
         creation_date=[str(self.dateEdit_creation_date.date().year()),str(self.dateEdit_creation_date.date().month()), str(self.dateEdit_creation_date.date().day())]
-        Creation_date=creation_date[0]+'-'+creation_date[1]+'-'+creation_date[2]
+        creation_time=self.timeEdit_creation_time.time().toString('hh:mm:ss')#[str(self.timeEdit_creation_time.time().hour()),str(self.timeEdit_creation_time.time().minute()), str(self.timeEdit_creation_time.time().second())]
+        Creation_date=creation_date[0]+'-'+creation_date[1]+'-'+creation_date[2]+'T'+creation_time#creation_time[0]+'-'+creation_time[1]+'-'+creation_time[2]
+        Date_save=self.dateEdit_creation_date.date().toString('yyyyMMdd')+self.timeEdit_creation_time.time().toString('hhmmss')
         if self.radioButton_temp.isChecked()==1:
             t1=self.dateEdit_tempstart.date().toString('yyyy-MM-dd')
             h1=self.timeEdit_start.time().toString('hh:mm:ss')
@@ -1107,14 +1120,18 @@ class Ui_MainDialog(object):
 #        self.tableWidget_validation.removeRow(rowPosition-1)
     def uploadfile(self):
         "Charge le dossier qui regroupe les données"
-        global upload_file, Filenames
-        Filenames=[]
+        global upload_file, Filenames, data_list
+        data_list=1
         upload_file=QtGui.QFileDialog.getOpenFileNames(MainDialog, '/Users/Standard/Documents/Programme/Widget')
         for i in range(0, len(upload_file)):
             rowPosition=self.tableWidget_validation.rowCount()
             self.tableWidget_validation.insertRow(rowPosition)
             self.tableWidget_validation.setItem(rowPosition,0,QtGui.QTableWidgetItem(upload_file[i]))
             Filenames.append(upload_file[i])
+            
+    def cleardatalist(self):
+        for i in range(0, len(Filenames)):
+            self.tableWidget_validation.removeRow(0)
 
         
     def validate(self):
@@ -1145,18 +1162,20 @@ class Ui_MainDialog(object):
             self.tab_5.setEnabled(True)
             self.tab_6.setEnabled(True)
             A=A+1
-            os.makedirs('/Users/Standard/Documents/Temporaire/%s' %title)
-            for i in range(0, len(Filenames)):
-                copy2(Filenames[i],'/Users/Standard/Documents/Temporaire/%s/%s' %(title,dataname[i]))
+            if data_list==1:
+                os.makedirs('/Users/Standard/Documents/Temporaire/%s_%s' %(title.replace(' ', '')[0:8],Date_save))
+                for i in range(0, len(Filenames)):
+                    copy2(Filenames[i],'/Users/Standard/Documents/Temporaire/%s_%s' %(title.replace(' ', '')[0:8],Date_save))
         elif response==QtGui.QMessageBox.No:
             B2d_XML2.xml(A,title, abstract,data_type,North,East,South,West,Depth1,Depth2,T1,T2,Creation_date,subject_Study, project_Phase, location, variables, format1, quality,process, use_lim,access,citation, resource_contact, owner1, owner2, distributor,name)
             h = QtGui.QMessageBox()
             h.setWindowTitle('Information')
             h.setText('The xml file has been created!')
             h.exec_()
-            os.makedirs('/Users/Standard/Documents/Temporaire/%s' %title)
-            for i in range(0, len(Filenames)):
-                copy2(Filenames[i],'/Users/Standard/Documents/Temporaire/%s/%s' %(title,dataname[i]))
+            if data_list==1:
+                os.makedirs('/Users/Standard/Documents/Temporaire/%s_%s' %(title.replace(' ', '')[0:8],Date_save))
+                for i in range(0, len(Filenames)):
+                    copy2(Filenames[i],'/Users/Standard/Documents/Temporaire/%s_%s/%s' %(title.replace(' ', '')[0:8],Date_save, dataname[i]))
             MainDialog.close()
 
 ###########################################################################################################################################   
